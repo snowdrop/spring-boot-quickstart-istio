@@ -5,11 +5,11 @@
 
     <parent>
         <groupId>me.snowdrop</groupId>
-        <artifactId>istio-sprintboot</artifactId>
+        <artifactId>istio-spring-boot</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>consuming-rest</artifactId>
+    <artifactId>say-service</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

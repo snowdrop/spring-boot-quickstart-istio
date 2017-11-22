@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.snowdrop</groupId>
-    <artifactId>istio-sprintboot</artifactId>
+    <artifactId>istio-spring-boot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -13,11 +13,12 @@
         <spring-boot-bom.version>1.5.8.Final</spring-boot-bom.version>
 
         <maven-spring-boot.version>1.5.8.RELEASE</maven-spring-boot.version>
+        <maven-fabric8.version>3.5.30</maven-fabric8.version>
     </properties>
 
     <modules>
-        <module>consuming-rest</module>
-        <module>rest-service</module>
+        <module>greeting-service</module>
+        <module>say-service</module>
     </modules>
 
     <dependencyManagement>
@@ -82,7 +83,7 @@
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>fabric8-maven-plugin</artifactId>
-                        <version>3.5.30</version>
+                        <version>${maven-fabric8.version}</version>
                         <executions>
                             <execution>
                                 <goals>
