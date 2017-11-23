@@ -18,9 +18,6 @@ public class SayController {
     @Value("${service.greeting.name}")
     private String greetingServiceName;
 
-    @Value("${service.greeting.port}")
-    private String greetingServicePort;
-
     @Value("${service.greeting.path}")
     private String greetingServicePath;
 
@@ -39,8 +36,6 @@ public class SayController {
     private URI getURI() {
         StringBuilder builder = new StringBuilder("http://");
         builder.append(greetingServiceName);
-        builder.append(":");
-        builder.append(greetingServicePort);
         builder.append(greetingServicePath);
         return URI.create(builder.toString());
     }

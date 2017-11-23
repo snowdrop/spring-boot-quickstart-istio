@@ -1,6 +1,19 @@
 server.port: 8090
+
+---
+spring:
+    profiles: development
+
 service:
   greeting:
-    name: "greeting-service"
-    port: 8080
+    name: localhost:8080
+    path: /greeting
+
+---
+spring:
+    profiles: kubernetes
+
+service:
+  greeting:
+    name: greeting-service:8080
     path: /greeting
