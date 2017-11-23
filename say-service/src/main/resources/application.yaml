@@ -1,1 +1,6 @@
 server.port: 8090
+service:
+  greeting:
+    name: "greeting-service"
+    port: 8080
+    path: /greeting
