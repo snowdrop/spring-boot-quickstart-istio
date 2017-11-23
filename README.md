@@ -54,15 +54,6 @@ oc login $(minishift ip):8443 -u admin -p admin
 oc new-project demo
 ```
 
-- Grant access for the `Say` application to access the platform as a Kubernetes Client and get info about the environment. 
-  So, assign the view access role to the `default` service account.
-  This [service account](https://docs.openshift.com/container-platform/3.6/dev_guide/service_accounts.html) provides a flexible way
-  to control API access without sharing a regular user’s credentials. It is mounted within the `Say` pod when it is created.
-  It corresponds to a token which is permanent.
-                                                                                                            
-```bash
-oc policy add-role-to-user view -n $(oc project -q) -z default
-```
 - Deploy the 2 Services
 ```bash
 cd greeting-service
