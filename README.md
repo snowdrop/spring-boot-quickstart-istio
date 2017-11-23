@@ -3,16 +3,9 @@
 This Quickstart contains 2 Spring Boot applications where the REST `Say` service calls the REST `Greeting` service. 
 The project can be used locally and launched using Spring Boot Maven plugin or deployed on OpenShift.
 
-To support multiple environments, 2 profiles have been defined within the `application.yaml` file. The `development` profile,
-which is passed as a configuration property for the `Say` service will be used when the application is launched locally
-using Spring Boot Maven plugin.
-
-The `kubernetes` profile will be used, if Spring Boot detects that the `Say` application is running on OpenShift. To enable this behavior
-, a Spring ApplicationListener Context, packaged with the Spring Cloud Kubernetes Core [module](https://github.com/spring-cloud-incubator/spring-cloud-kubernetes/blob/master/spring-cloud-kubernetes-core/src/main/java/org/springframework/cloud/kubernetes/profile/KubernetesProfileApplicationListener.java#L46),
-has been included within the `Say` application.
-
-Remark: As the `Say` Spring Boot application is turned into an Kubenetes client communicating with the platform, then it is required
-to grant access to the account. See more info hereafter
+To support multiple environments, 2 maven profiles have been defined and will be used to pass the endpoint of the greeting service
+within the `application.yaml` file. The `development` profile is used when the application is launched locally using Spring Boot Maven plugin
+while the `Openshift` profile will be used when the `Say` application is running on OpenShift. 
 
 ## Locally
 

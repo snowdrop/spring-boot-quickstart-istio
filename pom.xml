@@ -72,12 +72,29 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
+            <id>development</id>
+            <properties>
+                <greeting.endpoint>localhost:8080</greeting.endpoint>
+            </properties>
+        </profile>
+        <profile>
             <id>openshift</id>
+            <properties>
+                <greeting.endpoint>greeting-service:8080</greeting.endpoint>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
