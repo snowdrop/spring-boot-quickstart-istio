@@ -231,6 +231,37 @@ Hello version: v2, instance: helloworld-v2-1481045861-qb2ls
 
 ```
 
+- Add Route rule to send traffic to Hello World Service v1
+
+```bash
+cat <<EOF >> route-rule.yaml
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: helloworld
+spec:
+  destination:
+    name: helloworld
+  route:
+  - labels:
+      version: v1
+    weight: 100
+EOF    
+```
+
+- Check that all the traffic goes to Helloworld v1
+```bash
+export HELLOWORLD_URL=$(oc get po -l istio=ingress -o 'jsonpath={.items[0].status.hostIP}'):$(oc get svc istio-ingress -o 'jsonpath={.spec.ports[0].nodePort}')
+curl http://$HELLOWORLD_URL/hello
+Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
+curl http://$HELLOWORLD_URL/hello
+Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
+curl http://$HELLOWORLD_URL/hello
+Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
+curl http://$HELLOWORLD_URL/hello
+Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
+```
+
 ## Istio and Say Service
 
 - Create Say Ingress route under the `istio-system` namespace
