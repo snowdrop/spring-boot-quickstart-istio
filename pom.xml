@@ -109,6 +109,13 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <enricher>
+                                <excludes>
+                                    <exclude>fmp-openshift-route</exclude>
+                                </excludes>
+                            </enricher>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
