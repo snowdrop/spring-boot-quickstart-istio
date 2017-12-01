@@ -264,14 +264,22 @@ Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
 
 ## Istio and Say Service
 
-- Compile f-m-p `istio-enricher`
+The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
+that we call `Greeting service` is deployed as a standalone microservice.
+
+To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
+to this Proxy, we are using a new Fabric8 Maven Plugin responsible to perform that enrichment process.
+
+Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By adopting this enricher, then it is not longer required to use istioctl go client
+
+- Get the `istio-enricher` enricher and compile it locally
 ```bash
 git clone git@github.com:cmoulliard/fmp-istio-enricher.git
 cd fmp-istio-enricher
 mvn install -DskipTests=true
 ```
 
-- Create namespace `demo` and grant access for anyuid
+- Create a new Openshift namespace `demo` and grant access for anyuid/privileged for the default serviceaccount
 ```bash
 oc create-project demo
 oc adm policy add-scc-to-user anyuid -z default -n demo
@@ -290,6 +298,7 @@ oc import-image alpine --from=alpine --confirm
 cd greeting-service
 mvn clean install fabric8:deploy -Popenshift
 ```
+
 - Install Say service
 ```bash
 cd say-service
