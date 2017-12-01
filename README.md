@@ -269,6 +269,12 @@ Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
 istioctl create -f src/main/fabric8/ingress.yaml -v 10
 ```
 
+- Grant access for anyuid
+```bash
+oc adm policy add-scc-to-user anyuid -z default -n demo
+oc adm policy add-scc-to-user privileged -z default -n demo
+```
+
 - Create image stream for istio_proxy and istio_init
 ```
 oc import-image proxy_debug --from=docker.io/istio/proxy_debug:0.2.12 --confirm
