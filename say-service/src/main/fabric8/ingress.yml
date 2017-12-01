@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: ${project.artifactId}
   annotations:
-    kubernetes.io/ingress.class: "istio"
+    kubernetes.io/ingress.class: istio
 spec:
   rules:
   - http:
