@@ -11,4 +11,4 @@ spec:
       - path: /say
         backend:
           serviceName: say-service
-          servicePort: 8090
+          servicePort: 8080
