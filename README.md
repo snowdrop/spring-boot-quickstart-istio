@@ -339,11 +339,6 @@ mvn clean package fabric8:deploy
 
 - Access it 
 ```bash
-export SAY_URL=$(oc get po -l app=say-service  -o 'jsonpath={.items[0].status.hostIP}'):$(oc get svc say-service -o 'jsonpath={.spec.ports[0].nodePort}')
-curl http://$SAY_URL/say  
-
-or 
-
 export SAY_URL=$(oc get route say-service -o jsonpath='{.spec.host}{"\n"}')
 curl http://$SAY_URL/say 
 ```
