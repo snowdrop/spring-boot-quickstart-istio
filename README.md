@@ -264,22 +264,79 @@ Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
 
 ## Istio and Say Service
 
-- Create Say Ingress route under the `istio-system` namespace
+- Compile f-m-p `istio-enricher`
 ```bash
-istioctl create -f src/main/fabric8/ingress.yaml -v 10
+git clone git@github.com:cmoulliard/fmp-istio-enricher.git
+cd fmp-istio-enricher
+mvn install -DskipTests=true
 ```
 
-- Grant access for anyuid
+- Create namespace `demo` and grant access for anyuid
 ```bash
+oc create-project demo
 oc adm policy add-scc-to-user anyuid -z default -n demo
 oc adm policy add-scc-to-user privileged -z default -n demo
 ```
 
-- Create image stream for istio_proxy and istio_init
+- Create the image streams of the istio docker images required such as `istio_proxy`, `istio_init` and `alpine`
 ```
 oc import-image proxy_debug --from=docker.io/istio/proxy_debug:0.2.12 --confirm
 oc import-image proxy_init --from=docker.io/istio/proxy_init:0.2.12 --confirm
 oc import-image alpine --from=alpine --confirm
+```
+
+- Deploy the Greeting service 
+```bash
+cd greeting-service
+mvn clean install fabric8:deploy -Popenshift
+```
+- Install Say service
+```bash
+cd say-service
+mvn clean package fabric8:deploy
+```
+- Edit the `say-servcice` DeploymentConfig created in order to define these triggers and start a new deployment
+```yaml
+  triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - istio-init
+        from:
+          kind: ImageStreamTag
+          name: 'proxy_init:latest'
+          namespace: demo
+      type: ImageChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - istio-proxy
+        from:
+          kind: ImageStreamTag
+          name: 'proxy_debug:latest'
+          namespace: demo
+      type: ImageChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - spring-boot
+        from:
+          kind: ImageStreamTag
+          name: 'say-service:latest'
+          namespace: demo
+      type: ImageChange
+    - type: ConfigChange
+```
+
+- Access it 
+```bash
+export SAY_URL=$(oc get po -l app=say-service  -o 'jsonpath={.items[0].status.hostIP}'):$(oc get svc say-service -o 'jsonpath={.spec.ports[0].nodePort}')
+curl http://$SAY_URL/say  
+
+or 
+
+export SAY_URL=$(oc get route say-service -o jsonpath='{.spec.host}{"\n"}')
+curl http://$SAY_URL/say 
 ```
 
 

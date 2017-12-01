@@ -1,0 +1,16 @@
+piVersion: v1
+kind: Route
+metadata:
+  labels:
+    app: say-service
+    expose: "true"
+    group: me.snowdrop
+  name:  ${project.artifactId}
+spec:
+  port:
+    targetPort: http
+  to:
+    kind: Service
+    name: say-service
+    weight: 100
+  wildcardPolicy: None
