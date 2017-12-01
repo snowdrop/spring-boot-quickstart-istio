@@ -302,7 +302,7 @@ mvn clean package fabric8:deploy -Popenshift
 - Install Say service
 ```bash
 cd say-service
-mvn clean package fabric8:deploy -Popenshift
+mvn clean package fabric8:deploy -Psay-openshift
 ```
 - Edit the `say-service` DeploymentConfig created in order to define these triggers and start a new deployment
 ```yaml
