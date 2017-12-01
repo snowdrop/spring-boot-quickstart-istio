@@ -296,15 +296,15 @@ oc import-image alpine --from=alpine --confirm
 - Deploy the Greeting service 
 ```bash
 cd greeting-service
-mvn clean install fabric8:deploy -Popenshift
+mvn clean package fabric8:deploy -Popenshift
 ```
 
 - Install Say service
 ```bash
 cd say-service
-mvn clean package fabric8:deploy
+mvn clean package fabric8:deploy -Popenshift
 ```
-- Edit the `say-servcice` DeploymentConfig created in order to define these triggers and start a new deployment
+- Edit the `say-service` DeploymentConfig created in order to define these triggers and start a new deployment
 ```yaml
   triggers:
     - imageChangeParams:
@@ -337,7 +337,7 @@ mvn clean package fabric8:deploy
     - type: ConfigChange
 ```
 
-- Access it 
+- Access to `Say` service 
 ```bash
 export SAY_URL=$(oc get route say-service -o jsonpath='{.spec.host}{"\n"}')
 curl http://$SAY_URL/say 

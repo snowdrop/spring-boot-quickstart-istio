@@ -6,6 +6,6 @@ spec:
     - name: http
       port: 8080
       protocol: TCP
-      targetPort: 8090
+      targetPort: 8080
   selector:
     app: say-service

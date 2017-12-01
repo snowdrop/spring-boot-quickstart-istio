@@ -1,6 +1,6 @@
-server.port: 8090
+server.port: ${say-service.port}
 
 service:
   greeting:
-    name: ${greeting.endpoint}
+    name: ${greeting-service.endpoint}
     path: /greeting
