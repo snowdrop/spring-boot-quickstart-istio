@@ -23,10 +23,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
+      <!--  <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-kubernetes-core</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>io.fabric8</groupId>
@@ -72,7 +72,7 @@
                     <dependency>
                         <groupId>org.workspace7.fmp</groupId>
                         <artifactId>fmp-istio-enricher</artifactId>
-                        <version>2.0-SNAPSHOT</version>
+                        <version>1.0-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
                 <executions>
