@@ -35,7 +35,7 @@ Transfer-Encoding: chunked
 }
 ```
 
-## Deploy Services on OpenShift
+## Deploy the 2 Microservices on OpenShift
 
 - Start a Minishift VM on MacOS using Xhyve hypervisor
 ```bash
@@ -48,7 +48,7 @@ minishift --profile istio-demo addon enable admin-user
 minishift start --profile istio-demo
 ```
 
-- Log to openshift and creatde a ``demo`` project
+- Log to Openshift and create a ``demo`` project
 ```bash
 oc login $(minishift ip):8443 -u admin -p admin
 oc new-project demo
@@ -66,6 +66,61 @@ mvn fabric8:deploy -Popenshift
 ```bash
 SAY_SERVICE=$(minishift openshift service --url say-service)
 http $SAY_SERVICE/say
+```
+
+## Istio and Say plus GreetingService
+
+The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
+that we call `Greeting service` is deployed as a standalone microservice.
+
+To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
+to this Proxy, we are using a new Fabric8 Maven Plugin responsible to perform that enrichment process.
+
+Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By adopting this enricher, then it is not longer required to use istioctl go client
+
+- Get the `istio-enricher` enricher and compile it locally
+```bash
+git clone -b use-deploymemt git@github.com:cmoulliard/fmp-istio-enricher.git
+cd fmp-istio-enricher
+mvn install -DskipTests=true
+```
+
+- Create a new Openshift namespace `demo` and grant access for anyuid/privileged for the default serviceaccount
+```bash
+oc new-project demo
+oc adm policy add-scc-to-user anyuid -z default -n demo
+oc adm policy add-scc-to-user privileged -z default -n demo
+```
+
+- Deploy the Greeting service 
+```bash
+cd greeting-service
+mvn clean package fabric8:deploy -Popenshift
+```
+
+- Install Say service
+```bash
+cd say-service
+mvn clean package fabric8:deploy -Psay-openshift
+```
+
+- Scale the DeploymentConfig to 1 in order to start the pod
+```bash
+oc scale  --replicas=1 dc say-service
+```
+
+- Access to the `Say` service 
+
+Using the address of the service exposed using Openshift Route
+```bash
+export SAY_URL=$(oc get route say-service -o jsonpath='{.spec.host}{"\n"}')
+curl http://$SAY_URL/say 
+```
+
+or using the istio ingress route which is able to route the traffic to the envoy proxy
+```bash
+export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
+curl $SAY_URL
 ```
 
 ## Istio and Hello World
@@ -260,61 +315,6 @@ curl http://$HELLOWORLD_URL/hello
 Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
 curl http://$HELLOWORLD_URL/hello
 Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
-```
-
-## Istio and Say plus GreetingService
-
-The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
-that we call `Greeting service` is deployed as a standalone microservice.
-
-To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
-to this Proxy, we are using a new Fabric8 Maven Plugin responsible to perform that enrichment process.
-
-Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By adopting this enricher, then it is not longer required to use istioctl go client
-
-- Get the `istio-enricher` enricher and compile it locally
-```bash
-git clone -b use-deploymemt git@github.com:cmoulliard/fmp-istio-enricher.git
-cd fmp-istio-enricher
-mvn install -DskipTests=true
-```
-
-- Create a new Openshift namespace `demo` and grant access for anyuid/privileged for the default serviceaccount
-```bash
-oc new-project demo
-oc adm policy add-scc-to-user anyuid -z default -n demo
-oc adm policy add-scc-to-user privileged -z default -n demo
-```
-
-- Deploy the Greeting service 
-```bash
-cd greeting-service
-mvn clean package fabric8:deploy -Popenshift
-```
-
-- Install Say service
-```bash
-cd say-service
-mvn clean package fabric8:deploy -Psay-openshift
-```
-
-- Scale the DeploymentConfig to 1 in order to start the pod
-```bash
-oc scale  --replicas=1 dc say-service
-```
-
-- Access to the `Say` service 
-
-Using the address of the service exposed using Openshift Route
-```bash
-export SAY_URL=$(oc get route say-service -o jsonpath='{.spec.host}{"\n"}')
-curl http://$SAY_URL/say 
-```
-
-or using the istio ingress route which is able to route the traffic to the envoy proxy
-```bash
-export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
-curl $SAY_URL
 ```
 
 
