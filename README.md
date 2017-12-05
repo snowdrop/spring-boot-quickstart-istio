@@ -1,4 +1,13 @@
-# Instructions to play with Say and Greeting Quickstart 
+Table of Contents
+=================
+
+   * [Instructions to play with Say and Greeting Quickstart](#instructions-to-play-with-say-and-greeting-quickstart)
+      * [Locally](#locally)
+      * [Deploy the 2 Microservices on OpenShift](#deploy-the-2-microservices-on-openshift)
+      * [Istio and Say plus GreetingService](#istio-and-say-plus-greetingservice)
+      * [Istio and Hello World](#istio-and-hello-world)
+
+# Instructions to play with Say and Greeting Spring Boot Microservices 
 
 This Quickstart contains 2 Spring Boot applications where the REST `Say` service calls the REST `Greeting` service. 
 The project can be used locally and launched using Spring Boot Maven plugin or deployed on OpenShift.
@@ -48,7 +57,7 @@ minishift --profile istio-demo addon enable admin-user
 minishift start --profile istio-demo
 ```
 
-- Log to Openshift and create a ``demo`` project
+- Log to Openshift and create a `demo` project
 ```bash
 oc login $(minishift ip):8443 -u admin -p admin
 oc new-project demo
@@ -68,7 +77,7 @@ SAY_SERVICE=$(minishift openshift service --url say-service)
 http $SAY_SERVICE/say
 ```
 
-## Istio and Say plus GreetingService
+## Istio and Say plus Greeting Microserservices
 
 The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
 that we call `Greeting service` is deployed as a standalone microservice.
