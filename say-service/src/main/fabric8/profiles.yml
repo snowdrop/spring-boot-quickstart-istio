@@ -1,3 +1,4 @@
+# Profile containing Istio enricher
 - name: istio-spring-boot-profile
   enricher:
     includes:
@@ -22,7 +23,37 @@
     excludes:
     - fmp-openshift-route
   generator:
-    # The order given in "includes" is the order in which generators are called
+    includes:
+    - spring-boot
+  watcher:
+    includes:
+    - spring-boot
+    - docker-image
+
+# Spring Boot Profile
+- name: spring-boot-profile
+  enricher:
+    includes:
+    - fmp-name
+    - fmp-controller
+    - fmp-service
+    - fmp-image
+    - fmp-portname
+    - fmp-project
+    - fmp-pod-annotations
+    - fmp-debug
+    - fmp-merge
+    - fmp-remove-build-annotations
+    - fmp-volume-permission
+    - f8-expose
+    # Health checks
+    - spring-boot-health-check
+    - docker-health-check
+    - fmp-dependency
+    - f8-watch
+    excludes:
+    - fmp-openshift-route
+  generator:
     includes:
     - spring-boot
   watcher:

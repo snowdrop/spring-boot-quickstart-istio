@@ -90,36 +90,6 @@
                 <greeting.endpoint>localhost:8080</greeting.endpoint>
             </properties>
         </profile>
-        <profile>
-            <id>openshift</id>
-            <properties>
-                <greeting.endpoint>greeting-service:8080</greeting.endpoint>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>fabric8-maven-plugin</artifactId>
-                        <version>${maven-fabric8.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>resource</goal>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <enricher>
-                                <excludes>
-                                    <exclude>fmp-openshift-route</exclude>
-                                </excludes>
-                            </enricher>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
 </project>

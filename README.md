@@ -1,10 +1,10 @@
 Table of Contents
 =================
 
-   * [Instructions to play with Say and Greeting Quickstart](#instructions-to-play-with-say-and-greeting-quickstart)
+   * [Instructions to play with Say and Greeting Spring Boot Quickstart](#instructions-to-play-with-say-and-greeting-quickstart)
       * [Locally](#locally)
       * [Deploy the 2 Microservices on OpenShift](#deploy-the-2-microservices-on-openshift)
-      * [Istio and Say plus GreetingService](#istio-and-say-plus-greetingservice)
+      * [Istio calls Say plus GreetingService](#istio-and-say-plus-greetingservice)
       * [Istio and Hello World](#istio-and-hello-world)
 
 # Instructions to play with Say and Greeting Spring Boot Microservices 
@@ -66,10 +66,10 @@ oc new-project demo
 - Deploy the 2 Services
 ```bash
 cd greeting-service
-mvn fabric8:deploy -Popenshift
+mvn clean fabric8:deploy -Popenshift
 
 cd say-service
-mvn fabric8:deploy -Popenshift
+mvn clean fabric8:deploy -Popenshift
 ```
 - Call the `Say` service
 ```bash
@@ -77,7 +77,7 @@ SAY_SERVICE=$(minishift openshift service --url say-service)
 http $SAY_SERVICE/say
 ```
 
-## Istio and Say plus Greeting Microserservices
+## Istio and Say plus Greeting Microservices
 
 The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
 that we call `Greeting service` is deployed as a standalone microservice.
@@ -94,11 +94,11 @@ cd fmp-istio-enricher
 mvn install -DskipTests=true
 ```
 
-- Create a new Openshift namespace `demo` and grant access for anyuid/privileged for the default serviceaccount
+- Create a new Openshift namespace `demo-istio` and grant access for anyuid/privileged for the default serviceaccount
 ```bash
-oc new-project demo
-oc adm policy add-scc-to-user anyuid -z default -n demo
-oc adm policy add-scc-to-user privileged -z default -n demo
+oc new-project demo-istio
+oc adm policy add-scc-to-user anyuid -z default -n demo-istio
+oc adm policy add-scc-to-user privileged -z default -n demo-istio
 ```
 
 - Deploy the Greeting service 

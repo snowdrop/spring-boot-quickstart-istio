@@ -88,13 +88,57 @@
 
     <profiles>
         <profile>
-            <id>say-openshift</id>
+            <id>openshift</id>
             <properties>
                 <say-service.port>8080</say-service.port>
                 <greeting-service.endpoint>greeting-service:8080</greeting-service.endpoint>
             </properties>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>fabric8-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>resource</goal>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <profile>spring-boot-profile</profile>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>istio-openshift</id>
+            <properties>
+                <say-service.port>8080</say-service.port>
+                <greeting-service.endpoint>greeting-service:8080</greeting-service.endpoint>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.sourceDirectory}/META-INF/fabric8</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/istio</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>fabric8-maven-plugin</artifactId>
