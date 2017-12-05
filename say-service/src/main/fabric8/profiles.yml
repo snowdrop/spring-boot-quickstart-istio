@@ -12,8 +12,8 @@
     - fmp-merge
     - fmp-remove-build-annotations
     - fmp-volume-permission
-    - fmp-istio-enricher
     - f8-expose
+    - fmp-istio-enricher
     # Health checks
     - spring-boot-health-check
     - docker-health-check

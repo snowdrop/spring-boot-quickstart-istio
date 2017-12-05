@@ -281,16 +281,9 @@ mvn install -DskipTests=true
 
 - Create a new Openshift namespace `demo` and grant access for anyuid/privileged for the default serviceaccount
 ```bash
-oc create-project demo
+oc new-project demo
 oc adm policy add-scc-to-user anyuid -z default -n demo
 oc adm policy add-scc-to-user privileged -z default -n demo
-```
-
-- Create the image streams of the istio docker images required such as `istio_proxy`, `istio_init` and `alpine`
-```
-oc import-image proxy_debug --from=docker.io/istio/proxy_debug:0.2.12 --confirm
-oc import-image proxy_init --from=docker.io/istio/proxy_init:0.2.12 --confirm
-oc import-image alpine --from=alpine --confirm
 ```
 
 - Deploy the Greeting service 
@@ -304,43 +297,19 @@ mvn clean package fabric8:deploy -Popenshift
 cd say-service
 mvn clean package fabric8:deploy -Psay-openshift
 ```
-- Edit the `say-service` DeploymentConfig created in order to define these triggers and start a new deployment
-```yaml
-  triggers:
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - istio-init
-        from:
-          kind: ImageStreamTag
-          name: 'proxy_init:latest'
-          namespace: demo
-      type: ImageChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - istio-proxy
-        from:
-          kind: ImageStreamTag
-          name: 'proxy_debug:latest'
-          namespace: demo
-      type: ImageChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - spring-boot
-        from:
-          kind: ImageStreamTag
-          name: 'say-service:latest'
-          namespace: demo
-      type: ImageChange
-    - type: ConfigChange
-```
 
-- Access to `Say` service 
+- Access to the `Say` service 
+
+Using the address of the service exposed using Openshift Route
 ```bash
 export SAY_URL=$(oc get route say-service -o jsonpath='{.spec.host}{"\n"}')
 curl http://$SAY_URL/say 
+```
+
+or using the istio ingress route which is able to route the traffic to the envoy proxy
+```bash
+export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
+curl $SAY_URL
 ```
 
 
