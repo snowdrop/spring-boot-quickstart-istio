@@ -118,27 +118,11 @@
             <properties>
                 <say-service.port>8080</say-service.port>
                 <greeting-service.endpoint>greeting-service:8080</greeting-service.endpoint>
+                <fabric8.resourceDir>${basedir}/src/main/istio</fabric8.resourceDir>
+                <fabric8.mode>openshift</fabric8.mode>
             </properties>
             <build>
                 <plugins>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.sourceDirectory}/META-INF/fabric8</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/main/istio</directory>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>fabric8-maven-plugin</artifactId>

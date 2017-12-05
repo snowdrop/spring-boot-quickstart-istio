@@ -110,12 +110,12 @@ mvn clean package fabric8:deploy -Popenshift
 - Install Say service
 ```bash
 cd say-service
-mvn clean package fabric8:deploy -Psay-openshift
+mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio -Dfabric8.mode=openshift
 ```
 
 - Scale the DeploymentConfig to 1 in order to start the pod
 ```bash
-oc scale  --replicas=1 dc say-service
+oc scale --replicas=1 dc say-service
 ```
 
 - Access to the `Say` service 
