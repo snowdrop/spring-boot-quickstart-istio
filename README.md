@@ -1,4 +1,4 @@
-# Instructions to play with Quickstart 
+# Instructions to play with Say and Greeting Quickstart 
 
 This Quickstart contains 2 Spring Boot applications where the REST `Say` service calls the REST `Greeting` service. 
 The project can be used locally and launched using Spring Boot Maven plugin or deployed on OpenShift.
@@ -262,7 +262,7 @@ curl http://$HELLOWORLD_URL/hello
 Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
 ```
 
-## Istio and Say Service
+## Istio and Say plus GreetingService
 
 The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
 that we call `Greeting service` is deployed as a standalone microservice.
@@ -274,7 +274,7 @@ Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By ad
 
 - Get the `istio-enricher` enricher and compile it locally
 ```bash
-git clone git@github.com:cmoulliard/fmp-istio-enricher.git
+git clone -b use-deploymemt git@github.com:cmoulliard/fmp-istio-enricher.git
 cd fmp-istio-enricher
 mvn install -DskipTests=true
 ```
@@ -296,6 +296,11 @@ mvn clean package fabric8:deploy -Popenshift
 ```bash
 cd say-service
 mvn clean package fabric8:deploy -Psay-openshift
+```
+
+- Scale the DeploymentConfig to 1 in order to start the pod
+```bash
+oc scale  --replicas=1 dc say-service
 ```
 
 - Access to the `Say` service 
