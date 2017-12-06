@@ -132,7 +132,7 @@ mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/mai
 7. Access the `Say` service using the Istio Ingress/Proxy
 
 In order to access the service, it is required first to expose the Istio Ingress proxy behind a route that Openshift can route from your localhost machine.
-then, execute this command
+Then, execute this command
 ```bash
 oc expose svc istio-ingress -n istio-system
 ```
