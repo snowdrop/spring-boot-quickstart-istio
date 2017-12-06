@@ -102,9 +102,9 @@ Follow these instructions to play with Istio and the `Say` service
 
 - Get the Fabric8 Maven `istio-enricher` enricher and compile it locally
 ```bash
-git clone -b use-deploymemt git@github.com:cmoulliard/fmp-istio-enricher.git
+git clone git@github.com:cmoulliard/fmp-istio-enricher.git
 cd fmp-istio-enricher
-mvn install -DskipTests=true
+mvn install
 ```
 
 - Create a new Openshift namespace `demo-istio` and grant access for anyuid/privileged for the default serviceaccount
