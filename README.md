@@ -142,6 +142,33 @@ Next, you will be able to access the service using the address of the service ex
 ```bash
 export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
 curl $SAY_URL
+
+or 
+
+http -v $SAY_URL
+GET /say HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: istio-ingress-istio-system.192.168.64.26.nip.io
+User-Agent: HTTPie/0.9.9
+
+
+
+HTTP/1.1 200 OK
+Cache-control: private
+Set-Cookie: 144852ee66f5cb84d6e58f9bcce52825=d8dd521a887ff43f55e011dcd3d9caec; path=/; HttpOnly
+content-type: application/json;charset=UTF-8
+date: Wed, 06 Dec 2017 12:51:38 GMT
+server: envoy
+transfer-encoding: chunked
+x-envoy-upstream-service-time: 63
+
+{
+    "content": "Hello, World!",
+    "id": 6
+}
+
 ```
 
 Enjoy this first Istio and Spring Boot experience !!
