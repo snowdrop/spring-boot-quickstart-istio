@@ -97,10 +97,10 @@ Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By ad
 Follow these instructions to play with Istio and the `Say` service
 
 - Install the istio distribution locally according to these [instructions](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#download-and-install-istio-distribution)
-  The distro of istio contains the `istiocrl` client but also the yaml resources files to be used to install it on OpenShift
+  . The distro of istio contains the `istioctl` client but also the yaml resources files to be used to install it on OpenShift
 - Next, deploy the istio platform on Minishift using this [ansible playbook](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#deploy-istio-on-openshift) 
 
-- Get the `istio-enricher` enricher and compile it locally
+- Get the Fabric8 Maven `istio-enricher` enricher and compile it locally
 ```bash
 git clone -b use-deploymemt git@github.com:cmoulliard/fmp-istio-enricher.git
 cd fmp-istio-enricher
