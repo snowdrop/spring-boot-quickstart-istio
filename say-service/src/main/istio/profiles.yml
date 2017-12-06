@@ -22,6 +22,10 @@
     - f8-watch
     excludes:
     - fmp-openshift-route
+    config:
+      fmp-istio-enricher:
+        istioVersion: "0.3"
+
   generator:
     includes:
     - spring-boot
