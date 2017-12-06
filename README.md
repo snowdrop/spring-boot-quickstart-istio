@@ -91,7 +91,9 @@ to this Proxy, we will use the Fabric8 Maven Plugin using a new Enricher module 
 
 Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By adopting this enricher, then it is not longer required to use istioctl go client !
 
-Follow these instructions to play with IStio and the `Say` service
+### Instructions 
+
+Follow these instructions to play with Istio and the `Say` service
 
 - Install the istio distribution locally according to these [instructions](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#download-and-install-istio-distribution)
 - Next, deploy the istio platform on Minishift using this [ansible playbook](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#deploy-istio-on-openshift) 
