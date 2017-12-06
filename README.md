@@ -49,7 +49,6 @@ Transfer-Encoding: chunked
 - Start a Minishift VM on MacOS using Xhyve hypervisor
 ```bash
 minishift --profile istio-demo config set image-caching true
-minishift --profile istio-demo config set memory #GB
 minishift --profile istio-demo config set memory 3GB
 minishift --profile istio-demo config set openshift-version v3.7.0-rc.0
 minishift --profile istio-demo config set vm-driver xhyve
@@ -82,10 +81,16 @@ http $SAY_SERVICE/say
 The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
 that we call `Greeting service` is deployed as a standalone microservice.
 
+HTTP Client -> issue http request to call the `http://dsay-service/say` endpoint exposed by the Istio Ingress Proxy -> Address of the Say Service exposed behind an envoy Proxy is resolved 
+-> request forwarded -> Envoy Proxy -> PAss HTTP Request to Say Service -> Call `http://greeting-service/greeting` -> Populate reponse which is returned
+
 To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
 to this Proxy, we are using a new Fabric8 Maven Plugin responsible to perform that enrichment process.
 
 Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By adopting this enricher, then it is not longer required to use istioctl go client
+
+- Install the istio distribution locally according to these [instructions](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#download-and-install-istio-distribution)
+- Next, deploy the istio platform on Minishift using this [ansible playbook](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#deploy-istio-on-openshift) 
 
 - Get the `istio-enricher` enricher and compile it locally
 ```bash
@@ -120,13 +125,14 @@ oc scale --replicas=1 dc say-service
 
 - Access to the `Say` service 
 
-Using the address of the service exposed using Openshift Route
+In order to access the service, it is required first to expose the Istio Ingress proxy behind a route that Openshift can route from your localhost machine.
+then, execute this command
 ```bash
-export SAY_URL=$(oc get route say-service -o jsonpath='{.spec.host}{"\n"}')
-curl http://$SAY_URL/say 
+oc expose svc istio-ingress -n istio-system
 ```
 
-or using the istio ingress route which is able to route the traffic to the envoy proxy
+Next, you will be able to access the service using the address of the service exposed by the Ingress Proxy
+
 ```bash
 export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
 curl $SAY_URL
