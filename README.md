@@ -98,7 +98,7 @@ Remarks:
 
 Follow these instructions to play with Istio and the `Say` service
 
-- Install the istio distribution locally according to these [instructions](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#download-and-install-istio-distribution)
+- Install the istio binary distribution locally according to these [instructions](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#download-and-install-istio-distribution) using Ansible 2.4.
   . The distro of istio contains the `istioctl` client but also the yaml resources files to be used to install it on OpenShift
 - Next, deploy the istio platform on Minishift using this [ansible playbook](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#deploy-istio-on-openshift) 
 
