@@ -126,11 +126,6 @@ cd say-service
 mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
 ```
 
-- Scale the DeploymentConfig to 1 in order to start the pod
-```bash
-oc scale --replicas=1 dc say-service
-```
-
 - Access to the `Say` service 
 
 In order to access the service, it is required first to expose the Istio Ingress proxy behind a route that Openshift can route from your localhost machine.
