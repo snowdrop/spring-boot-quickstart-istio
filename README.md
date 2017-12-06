@@ -171,5 +171,5 @@ x-envoy-upstream-service-time: 63
 
 ```
 
-Enjoy this first Istio and Spring Boot experience !!
+Enjoy this first **Istio** and **Spring Boot** Developer Experience !!
 
