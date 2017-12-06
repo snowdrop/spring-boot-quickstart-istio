@@ -1,7 +1,6 @@
 Table of Contents
 =================
 
-   * [Table of Contents](#table-of-contents)
    * [Instructions to play with Say and Greeting Spring Boot Microservices](#instructions-to-play-with-say-and-greeting-spring-boot-microservices)
       * [Locally](#locally)
       * [Deploy the 2 Microservices on OpenShift](#deploy-the-2-microservices-on-openshift)
