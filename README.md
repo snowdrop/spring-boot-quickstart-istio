@@ -123,13 +123,13 @@ cd greeting-service
 mvn clean package fabric8:deploy -Popenshift
 ```
 
-- Install Say service
+- Install the Say service part of the Service Mesh
 ```bash
 cd say-service
 mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
 ```
 
-- Access to the `Say` service 
+- Access the `Say` service using the Istio Ingress/Proxy
 
 In order to access the service, it is required first to expose the Istio Ingress proxy behind a route that Openshift can route from your localhost machine.
 then, execute this command
