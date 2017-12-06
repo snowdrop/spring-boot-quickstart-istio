@@ -102,7 +102,7 @@ Follow these instructions to play with Istio and the `Say` service
 
 - Get the Fabric8 Maven `istio-enricher` enricher and compile it locally
 ```bash
-git clone git@github.com:cmoulliard/fmp-istio-enricher.git
+git clone git@github.com:snowdrop/fmp-istio-enricher.git
 cd fmp-istio-enricher
 mvn install
 ```
