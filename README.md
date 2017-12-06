@@ -81,8 +81,8 @@ http $SAY_SERVICE/say
 The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
 that we call `Greeting service` is deployed as a standalone microservice.
 
-HTTP Client -> issue http request to call the `http://dsay-service/say` endpoint exposed by the Istio Ingress Proxy -> Address of the Say Service exposed behind an envoy Proxy is resolved 
--> request forwarded -> Envoy Proxy -> PAss HTTP Request to Say Service -> Call `http://greeting-service/greeting` -> Populate reponse which is returned
+HTTP Client -> issue http request to call the `http://say-service/say` endpoint exposed by the Istio Ingress Proxy -> Address of the Say Service is resolved 
+-> request forwarded to the Envoy Proxy -> Pass HTTP Request to Say Service -> Call `http://greeting-service/greeting` -> Populate response which is returned
 
 To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
 to this Proxy, we are using a new Fabric8 Maven Plugin responsible to perform that enrichment process.
