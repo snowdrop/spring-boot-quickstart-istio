@@ -83,8 +83,8 @@ that we call `Greeting service` is deployed as a standalone microservice.
 
 When, an external HTTP client will consume the service using either `curl` or `httpie` tools, then the following actions will take place :
 
-HTTP Client -> issue http request to call the `http://say-service/say` endpoint exposed by the Istio Ingress Proxy -> Address of the Say Service is resolved 
--> request forwarded to the Envoy Proxy -> Pass HTTP Request to Say Service running within the pod -> Call the `http://greeting-service/greeting` service running within another pod -> Populate response which is returned
+_HTTP Client -> issue http request to call the `http://say-service/say` endpoint exposed by the Istio Ingress Proxy -> Address of the Say Service is resolved 
+-> request forwarded to the Envoy Proxy -> Pass HTTP Request to Say Service running within the pod -> Call the `http://greeting-service/greeting` service running within another pod -> Populate response which is returned_
 
 To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
 to this Proxy, we are using a new Fabric8 Maven Plugin responsible to perform that enrichment process.
