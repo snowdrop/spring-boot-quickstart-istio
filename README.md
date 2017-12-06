@@ -87,9 +87,11 @@ _HTTP Client -> issue http request to call the `http://say-service/say` endpoint
 -> request forwarded to the Envoy Proxy -> Pass HTTP Request to Say Service running within the pod -> Call the `http://greeting-service/greeting` service running within another pod -> Populate response which is returned_
 
 To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
-to this Proxy, we are using a new Fabric8 Maven Plugin responsible to perform that enrichment process.
+to this Proxy, we will use the Fabric8 Maven Plugin using a new Enricher module called `istio-enricher`.
 
-Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By adopting this enricher, then it is not longer required to use istioctl go client
+Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By adopting this enricher, then it is not longer required to use istioctl go client !
+
+Follow these instructions to play with IStio and the `Say` service
 
 - Install the istio distribution locally according to these [instructions](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#download-and-install-istio-distribution)
 - Next, deploy the istio platform on Minishift using this [ansible playbook](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#deploy-istio-on-openshift) 
