@@ -89,7 +89,10 @@ _HTTP Client -> issue http request to call the `http://say-service/say` endpoint
 To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
 to this Proxy, we will use the Fabric8 Maven Plugin using a new Enricher module called `istio-enricher`.
 
-Remark: The Fabric8 Maven Plugin enricher currently supports Istio 0.2.12. By adopting this enricher, then it is not longer required to use istioctl go client !
+Remarks: 
+
+- This code has been tested against Istio 0.2.12. 
+- By adopting this enricher, then it is not longer required to use istioctl client !
 
 ### Instructions 
 
