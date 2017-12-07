@@ -109,11 +109,11 @@ cd fmp-istio-enricher
 mvn install
 ```
 
-4. Create a new Openshift namespace `demo-istio` and add the default serviceaccount, used to authenticate the pod with Openshift, with these security constraints (anyuid/privileged) required
-  to let the Istio Proxy to be launched with any UID.
+4. Create a new Openshift namespace `demo-istio`. Add to the `default` serviceaccount user, used to authenticate the pod with Openshift, the `privileged` security constraint.
+
 ```bash
 oc new-project demo-istio
-oc adm policy add-scc-to-user anyuid -z default -n demo-istio
+# oc adm policy add-scc-to-user anyuid -z default -n demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
 ```
 

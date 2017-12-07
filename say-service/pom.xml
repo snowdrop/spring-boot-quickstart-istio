@@ -24,7 +24,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Version of the model required to create the initContainers -->
+        <!-- Version of the model required to use istio enricher -->
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>kubernetes-model</artifactId>
@@ -93,6 +93,7 @@
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>fabric8-maven-plugin</artifactId>
+                        <version>${maven-fabric8.version}</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -121,6 +122,7 @@
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>fabric8-maven-plugin</artifactId>
+                        <version>${maven-fabric8.version}</version>
                         <dependencies>
                             <dependency>
                                 <groupId>me.snowdrop</groupId>
