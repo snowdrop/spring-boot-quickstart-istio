@@ -78,16 +78,16 @@ http $SAY_SERVICE/say
 
 ## Istio and Say plus Greeting Microservices
 
-The following instructions will let you to install 2 Spring Boot applications where the first is part of the Istio Site mesh `this is the Say Service` while the second
-that we call `Greeting service` is deployed as a standalone microservice.
+The following instructions will let you to install 2 Spring Boot applications, top of the Istio Site mesh where the `Say Service` is calling the
+ `Greeting service` to get as response `Hello World`.
 
-When, an external HTTP client will consume the service using either `curl` or `httpie` tools, then the following actions will take place :
+When, an external HTTP client will consume the service using either `curl` or `httpie` tools, then the HTTP request will be propagated as such :
 
 _HTTP Client -> issue http request to call the `http://say-service/say` endpoint exposed by the Istio Ingress Proxy -> Route and address of the Say Service is resolved 
 -> request forwarded to the Envoy Proxy -> Pass HTTP Request to Say Service running within the pod -> Call the `http://greeting-service/greeting` service running within another pod -> Populate response which is returned_
 
 To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
-to this Proxy, we will use the Fabric8 Maven Plugin using a new Enricher module called `istio-enricher`.
+to ththe Envoyis Proxy, we will use the Fabric8 Maven Plugin using a new Enricher module called `istio-enricher`.
 
 Remarks: 
 
@@ -120,10 +120,10 @@ oc adm policy add-scc-to-user privileged -z default -n demo-istio
 5. Deploy the Greeting service 
 ```bash
 cd greeting-service
-mvn clean package fabric8:deploy -Popenshift
+mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
 ```
 
-6. Install the Say service part of the Service Mesh
+6. Install the Say service
 ```bash
 cd say-service
 mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio

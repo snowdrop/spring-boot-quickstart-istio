@@ -13,7 +13,7 @@
         <spring-boot-bom.version>1.5.8.Final</spring-boot-bom.version>
 
         <maven-spring-boot.version>1.5.8.RELEASE</maven-spring-boot.version>
-        <maven-fabric8.version>3.5.30</maven-fabric8.version>
+        <maven-fabric8.version>3.5.33</maven-fabric8.version>
     </properties>
 
     <modules>
@@ -71,6 +71,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId>
+                <version>${maven-fabric8.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
