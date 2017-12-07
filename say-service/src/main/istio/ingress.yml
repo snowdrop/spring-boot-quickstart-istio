@@ -10,5 +10,5 @@ spec:
       paths:
       - path: /say
         backend:
-          serviceName: say-service
+          serviceName: ${project.artifactId}
           servicePort: 8080

@@ -8,4 +8,4 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: say-service
+    app: ${project.artifactId}
