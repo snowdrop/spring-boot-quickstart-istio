@@ -8,7 +8,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /say
+      - path: /greeting
         backend:
           serviceName: ${project.artifactId}
           servicePort: 8080
