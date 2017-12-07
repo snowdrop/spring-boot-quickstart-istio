@@ -24,11 +24,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!--  <dependency>
-              <groupId>org.springframework.cloud</groupId>
-              <artifactId>spring-cloud-kubernetes-core</artifactId>
-          </dependency>-->
-
         <!-- Version of the model required to create the initContainers -->
         <dependency>
             <groupId>io.fabric8</groupId>
