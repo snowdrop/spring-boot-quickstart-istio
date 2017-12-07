@@ -113,7 +113,6 @@ mvn install
 
 ```bash
 oc new-project demo-istio
-# oc adm policy add-scc-to-user anyuid -z default -n demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
 ```
 
