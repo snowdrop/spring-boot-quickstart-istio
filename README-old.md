@@ -335,5 +335,24 @@ curl http://$HELLOWORLD_URL/hello
 Hello version: v1, instance: helloworld-v1-4222617585-pvqjs
 ```
 
+### All in one
+
+```
+oc delete project demo-istio
+sleep 30s
+oc new-project demo-istio
+oc adm policy add-scc-to-user privileged -z default -n demo-istio
+cd greeting-service
+mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
+
+cd ../say-service
+mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
+sleep 30s
+oc expose svc istio-ingress -n istio-system
+
+export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
+curl $SAY_URL
+```
+
 
 
