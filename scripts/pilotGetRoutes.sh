@@ -1,9 +1,14 @@
-
 #
-# Prereq : install httpie tool
-# Pilot is exposed behind an OpenShift route -> oc expose istio-pilot -n istio-system
-# Model : https://github.com/istio/istio/blob/master/pilot/proxy/context.go
-# syntax : ./scripts/pilotGetRoutes.sh [service-name] [port] [namespace]
+# Prereq :
+# - httpie tool : https://httpie.org/
+# - Minishift : https://docs.openshift.org/latest/minishift/getting-started/installing.html
+# - Istio is instaled under istio-system namespace
+# - Pilot is exposed behind an OpenShift route : oc expose svc istio-pilot -n istio-system
+# Info about Model to be used to build the request: https://github.com/istio/istio/blob/master/pilot/proxy/context.go
+#
+# Command syntax : ./scripts/pilotGetRoutes.sh [service-name] [port] [namespace]
+#
+# E.g : ./scripts/pilotGetRoutes.sh say-service 8080 demo-istio
 #
 
 service=$1
