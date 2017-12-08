@@ -19,10 +19,52 @@ minishift start --profile demo
 oc login -u admin -p admin
 ```
 
-## With Istio 0.3
+## Using Istio 0.2.12
 
 Next to install istio with the quickstart, then the following instructions should be executed within a terminal.
-Remark : You can change the version of istio: 0.2.12, 0.3.0
+
+Prerequesite: 
+- Ansible 2.4 must be installed on your laptop
+- minishift is installed and a vm created as defined previously
+
+```
+pushd $(mktemp -d)
+echo "Git clone project to compile the Fabric8 Istio enricher whci can inject proxy"
+git clone git@github.com:snowdrop/fmp-istio-enricher.git && cd fmp-istio-enricher
+mvn install
+cd ..
+
+git clone git@github.com:snowdrop/istio-integration.git
+
+echo "Install istio distro and platform"
+ansible-playbook istio-integration/ansible/main.yml -t install-distro
+ansible-playbook istio-integration/ansible/main.yml -t install-istio
+
+echo "Sleep at least 5min to be sure that all the docker images of istio will be downloaded and istio will be deployed"
+sleep 5m
+git clone git@github.com:snowdrop/spring-boot-quickstart-istio.git && cd spring-boot-quickstart-istio
+
+oc new-project demo-istio
+oc adm policy add-scc-to-user privileged -z default -n demo-istio
+
+cd greeting-service
+mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
+
+cd ../say-service
+mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
+sleep 30s
+oc expose svc istio-ingress -n istio-system
+
+export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
+http -v $SAY_URL
+popd
+```
+
+## With Istio 0.3
+
+Unfortunately, this scenario fails on istio 0.3.0 due to this [issue](https://github.com/istio/istio/issues/2031) !!
+
+Next to install istio with the quickstart, then the following instructions should be executed within a terminal.
 
 Prerequesite: Ansible 2.4 must be installed on your laptop
 
