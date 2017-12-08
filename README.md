@@ -189,6 +189,16 @@ oc rsh -c istio-proxy say-service-3-lrkh8
 (proxy)$ curl localhost:15000/clusters
 (proxy)$ curl localhost:15000/server_info
 (proxy)$ curl localhost:15000/stats
+(proxy)$ curl localhost:15000/routes
+```
+
+You can also execute the curl request without doing a rsh and using the `oc exec` command
+
+```bash
+podName=$(oc get pods -o jsonpath='{.items[*].metadata.name}' -l app=say-service)
+oc exec $podName -c spring-boot curl http://localhost:15000/routes
+oc exec $podName -c spring-boot curl http://localhost:15000/clusters
+oc exec $podName -c spring-boot curl http://localhost:15000/listeners
 ```
 
 
