@@ -7,6 +7,10 @@ Table of Contents
       * [Istio and Say plus Greeting Microservices](#istio-and-say-plus-greeting-microservices)
          * [Instructions](#instructions)
    * [Troubleshoot](#troubleshoot)
+      * [How to question the Envoy Proxy](#how-to-question-the-envoy-proxy)
+      * [Tell me if my route is well registered under RDS](#tell-me-if-my-route-is-well-registered-under-rds)
+      * [Is my route part of en Envoy Cluster ?](#is-my-route-part-of-en-envoy-cluster-)
+      * [Envoy /routes endpoint is not there ?](#envoy-routes-endpoint-is-not-there-)
 
 # Instructions to play with Say and Greeting Spring Boot Microservices 
 
