@@ -9,7 +9,7 @@
 #
 # Info about Model to be used to build the request: https://github.com/istio/istio/blob/master/pilot/proxy/context.go
 #
-# Command syntax : ./scripts/pilotGetRoutes.sh [service-name] [port] [namespace]
+# Command syntax : ./scripts/pilotGetClusters.sh [service-name] [namespace]
 #
 # E.g : ./scripts/pilotGetClusters.sh greeting-service demo-istio
 #
