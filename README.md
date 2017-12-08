@@ -6,6 +6,7 @@ Table of Contents
       * [Deploy the 2 Microservices on OpenShift](#deploy-the-2-microservices-on-openshift)
       * [Istio and Say plus Greeting Microservices](#istio-and-say-plus-greeting-microservices)
          * [Instructions](#instructions)
+   * [Troubleshoot](#troubleshoot)
 
 # Instructions to play with Say and Greeting Spring Boot Microservices 
 
