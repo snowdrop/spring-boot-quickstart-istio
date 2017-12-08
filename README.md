@@ -176,6 +176,8 @@ Enjoy this first **Istio** and **Spring Boot** Developer Experience !!
 
 # Troubleshoot
 
+## How to question the Envoy Proxy
+
 Let's ask the local envoy proxy what it knows about its listeners, routes, clusters, and info (remember it got : this from xDS from Pilot?)
 
 ```bash
@@ -203,7 +205,9 @@ oc exec $podName -c spring-boot curl http://localhost:15000/clusters
 oc exec $podName -c spring-boot curl http://localhost:15000/listeners
 ```
 
-If the routes about the services are well added within the Envoy Routes Discovery repository, then you should be able to see this entry when you issue
+## Tell me if my route is well registered under RDS
+
+If the routes about the services are well added within the Envoy Routes Discovery repository, then you should be able to see an entry when you issue
 the command `curl http://localhost:15000/routes | grep [service-name]` where `[service-name]` corresponds to one of the service installed  
 
 ```bash
@@ -256,6 +260,8 @@ Example : `cluster: out.greeting-service.demo-istio.svc.cluster.local|http.`
   ]
 ```
 
+## Is my route part of en Envoy Cluster ?
+
 To verify that the route is well registered and match the pod of service, then you will query the clusters info
 and filter the result according to its cluster id
 
@@ -295,7 +301,7 @@ oc exec $podName -c spring-boot curl http://localhost:8080/say
 {"id":2,"content":"Hello, World!"}                    
 ```
 
-## Envoy /routes endpoint is not there
+## Envoy /routes endpoint is not there ?
 
 /routes should be there when you `curl http://localhost:15000/routes` the admin endpoint of the proxy.
 
