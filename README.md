@@ -290,12 +290,12 @@ oc get pods -o jsonpath='{.items[*].status.podIP}' -l app=say-service
 
 2. Issue a curl HTTP Query
 ```bash
-podName=$(oc get pods -o jsonpath='{.items[*].matedate.name}' -l app=say-service)
+podName=$(oc get pods -o jsonpath='{.items[*].metadata.name}' -l app=say-service)
 oc exec $podName -c spring-boot curl http://localhost:8080/say                
 {"id":2,"content":"Hello, World!"}                    
 ```
 
-## /routes endpoint is not there
+## Envoy /routes endpoint is not there
 
 /routes should be there when you `curl http://localhost:15000/routes` the admin endpoint of the proxy.
 
