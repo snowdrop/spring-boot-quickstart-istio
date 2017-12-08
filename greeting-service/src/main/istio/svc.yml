@@ -5,6 +5,7 @@ spec:
   ports:
     - name: http
       port: 8080
+      protocol: http
       targetPort: 8080
   selector:
     app: ${project.artifactId}
