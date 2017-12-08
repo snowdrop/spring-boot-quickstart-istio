@@ -92,6 +92,7 @@ to ththe Envoyis Proxy, we will use the Fabric8 Maven Plugin using a new Enriche
 Remarks: 
 
 - This code has been tested against Istio 0.2.12. 
+- Due to a [bug](https://github.com/istio/istio/issues/2031) discovered with istio 0.3.0, we don't recommend to install it till it is resolved.
 - By adopting this enricher, then it is not longer required to use istioctl client !
 
 ### Instructions 
