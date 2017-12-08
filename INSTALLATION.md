@@ -38,8 +38,7 @@ git checkout 0.3.0
 # Install istio distro and platform
 ansible-playbook istio-integration/ansible/main.yml -t install-istio
 
-git clone git@github.com:snowdrop/spring-boot-quickstart-istio.git && cd spring-boot-quickstart-istio
-git checkout 0.3.0
+git clone -b 0.3.x git@github.com:snowdrop/spring-boot-quickstart-istio.git && cd spring-boot-quickstart-istio
 oc new-project demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
 
