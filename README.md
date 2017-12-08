@@ -295,6 +295,48 @@ oc exec $podName -c spring-boot curl http://localhost:8080/say
 {"id":2,"content":"Hello, World!"}                    
 ```
 
+## /routes endpoint is not there
+
+/routes should be there when you `curl http://localhost:15000/routes` the admin endpoint of the proxy.
+
+According to the [Envoy RDS doc](https://www.envoyproxy.io/docs/envoy/latest/operations/admin.html#get--routes?route_config_name=-name-)
+"This endpoint is only available if envoy has HTTP routes configured via RDS."
+
+So, if the /routes endpointis missing, then that means that Envoy proxy for some reason is not configured with RDS (it should be).
+
+To check envoy's configuration, run:
+
+```bash
+oc exec -it <your pod> -c istio-proxy -- ls /etc/istio/proxy
+```
+
+The output will be, for example: envoy-rev0.json
+And then cat this envoy configuration:
+
+```bash
+oc exec -it <your pod> -c istio-proxy -- cat /etc/istio/proxy/envoy-rev0.json
+```
+
+You should check if there is RDS cluster defined:
+
+```
+ "cluster_manager": {
+    "clusters": [
+      {
+        "name": "rds",
+        "connect_timeout_ms": 10000,
+        "type": "strict_dns",
+        "lb_type": "round_robin",
+        "hosts": [
+          {
+
+            "url": "tcp://istio-pilot.istio-system:15003"
+
+          }
+        ]
+      },
+```
+
 
 
 
