@@ -203,5 +203,99 @@ oc exec $podName -c spring-boot curl http://localhost:15000/clusters
 oc exec $podName -c spring-boot curl http://localhost:15000/listeners
 ```
 
+If the routes about the services are well added within the Envoy Routes Discovery repository, then you should be able to see this entry when you issue
+the command `curl http://localhost:15000/routes | grep [service-name]` where `[service-name]` corresponds to one of the service installed  
+
+```bash
+oc exec $podName -c spring-boot curl http://localhost:15000/routes | grep greeting-service
+...
+```
+
+The pretty printed json format returned for a service contains for a name, the virtual hosts associated. The virtual host definition will let
+Envoy to understand how traffic can pass. So, as you can see, you have a virtual domain defined for the `greeting-service`.
+Envoy will catch any request that arrives to it with HOST header equal `greeting-service:8080` and will direct it to the 
+`out.63122066cf2af786d555e101d51237c3d5e00da4` according to the prefix whic is `/` 
+
+Remark : since istio 0.3, the cluster route name corresponds to a human readible containing also the protocol
+Example : `cluster: out.greeting-service.demo-istio.svc.cluster.local|http.`
+
+```json
+ 
+"route_table_dump"
+{
+  "name": "8080",
+  "virtual_hosts": [
+    {
+      "name": "greeting-service.demo-istio.svc.cluster.local|http",
+      "domains": [
+        "greeting-service:8080",
+        "greeting-service",
+        "greeting-service.demo-istio:8080",
+        "greeting-service.demo-istio",
+        "greeting-service.demo-istio.svc:8080",
+        "greeting-service.demo-istio.svc",
+        "greeting-service.demo-istio.svc.cluster:8080",
+        "greeting-service.demo-istio.svc.cluster",
+        "greeting-service.demo-istio.svc.cluster.local:8080",
+        "greeting-service.demo-istio.svc.cluster.local",
+        "172.30.2.64:8080",
+        "172.30.2.64"
+      ],
+      "routes": [
+        {
+          "match": {
+            "prefix": "/"
+          },
+          "route": {
+            "cluster": "out.63122066cf2af786d555e101d51237c3d5e00da4"
+          }
+        }
+      ]
+    }
+    ...
+  ]
+```
+
+To verify that the route is well registered and match the pod of service, then you will query the clusters info
+and filter the result according to its cluster id
+
+```bash
+oc exec $podName -c spring-boot curl http://localhost:15000/clusters | grep 63122066cf2af786d555e101d51237c3d5e00da4
+```
+
+Then you should be able to verify the podIP address used
+
+```
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::cx_active::1
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::cx_connect_fail::0
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::cx_total::1
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::rq_active::0
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::rq_timeout::0
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::rq_total::1
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::health_flags::healthy
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::weight::1
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::zone::
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::canary::false
+out.63122066cf2af786d555e101d51237c3d5e00da4::172.17.0.13:8080::success_rate::-1
+```
+
+With the ip address of the pod, then you can verify first that it beloings to our service
+and next issue a curl request to question the HTTP Endpoint
+
+1. Get the Pod IP Address
+```bash
+oc get pods -o jsonpath='{.items[*].status.podIP}' -l app=say-service
+172.17.0.14                                               
+```
+
+2. Issue a curl HTTP Query
+```bash
+podName=$(oc get pods -o jsonpath='{.items[*].matedate.name}' -l app=say-service)
+oc exec $podName -c spring-boot curl http://localhost:8080/say                
+{"id":2,"content":"Hello, World!"}                    
+```
+
+
+
 
 
