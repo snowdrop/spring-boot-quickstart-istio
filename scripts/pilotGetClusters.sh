@@ -1,5 +1,5 @@
 #
-# Get from the Istio Pilot the Routes registered
+# Get from the Istio Pilot the Clusters registered
 #
 # Prereq :
 # - httpie tool : https://httpie.org/
@@ -11,15 +11,14 @@
 #
 # Command syntax : ./scripts/pilotGetRoutes.sh [service-name] [port] [namespace]
 #
-# E.g : ./scripts/pilotGetRoutes.sh greeting-service 8080 demo-istio
+# E.g : ./scripts/pilotGetClusters.sh greeting-service demo-istio
 #
 
 service=$1
-port=$2
-namespace=$3
+namespace=$2
 
 pilotURL=$(minishift openshift service istio-pilot --url)
 podName=$(oc get pods -o jsonpath='{.items[*].metadata.name}' -l app=$service)
 podIP=$(oc get pods -o jsonpath='{.items[*].metadata.name}' -l app=$service -o jsonpath='{.items[*].status.podIP}')
 
-http -v $pilotURL/v1/routes/$port/$service/sidecar~$ip~$podName.$namespace~$namespace.svc.cluster.local
+http -v $pilotURL/v1/clusters/$service/sidecar~$ip~$podName.$namespace~$namespace.svc.cluster.local
