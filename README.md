@@ -172,3 +172,24 @@ x-envoy-upstream-service-time: 63
 
 Enjoy this first **Istio** and **Spring Boot** Developer Experience !!
 
+# Troubleshoot
+
+Let's ask the local envoy proxy what it knows about its listeners, routes, clusters, and info (remember it got : this from xDS from Pilot?)
+
+```bash
+oc get pods
+NAME                           READY     STATUS      RESTARTS   AGE
+greeting-service-3-2scr7       2/2       Running     0          49m
+say-service-3-lrkh8            2/2       Running     0          49m
+
+oc rsh -c istio-proxy say-service-3-lrkh8
+
+(proxy)$ curl localhost:15000
+(proxy)$ curl localhost:15000/listeners
+(proxy)$ curl localhost:15000/clusters
+(proxy)$ curl localhost:15000/server_info
+(proxy)$ curl localhost:15000/stats
+```
+
+
+
