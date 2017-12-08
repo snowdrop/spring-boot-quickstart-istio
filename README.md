@@ -307,7 +307,8 @@ So, if the /routes endpointis missing, then that means that Envoy proxy for some
 To check envoy's configuration, run:
 
 ```bash
-oc exec -it <your pod> -c istio-proxy -- ls /etc/istio/proxy
+podName=$(oc get pods -o jsonpath='{.items[*].metadata.name}' -l app=say-service)
+oc exec -it $podName -c istio-proxy -- ls /etc/istio/proxy
 ```
 
 The output will be, for example: envoy-rev0.json
