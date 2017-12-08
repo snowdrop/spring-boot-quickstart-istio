@@ -24,7 +24,7 @@
     - fmp-openshift-route
     config:
       fmp-istio-enricher:
-        istioVersion: "0.2.12"
+        istioVersion: "0.3.0"
 
   generator:
     includes:
