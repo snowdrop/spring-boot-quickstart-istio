@@ -70,4 +70,43 @@ curl http://greeting-service.demo.svc.cluster.local:8080/greeting
 popd
 ```
 
+## With Istio 0.3
+
+```
+pushd $(mktemp -d)
+git clone git@github.com:snowdrop/istio-integration.git
+git checkout 0.3.0
+
+# Install istio distro and platform
+ansible-playbook istio-integration/ansible/main.yml -t install-istio
+
+git clone git@github.com:snowdrop/spring-boot-quickstart-istio.git && cd spring-boot-quickstart-istio
+git checkout 0.3.0
+oc new-project demo-istio
+oc adm policy add-scc-to-user privileged -z default -n demo-istio
+
+cd greeting-service
+mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
+
+cd ../say-service
+mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
+sleep 30s
+oc expose svc istio-ingress -n istio-system
+
+export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
+http -v $SAY_URL
+
+oc rsh $(oc get pods -o jsonpath='{.items[*].metadata.name}' -l app=say-service)
+curl http://localhost:8080/say
+curl http://$HOSTNAME:8080/say
+podIP=$(grep `hostname` /etc/hosts | awk '{print $1}')
+echo $podIP
+curl $podIP:8080/say
+# curl http://say-service.demo.svc.cluster.local:8080/say
+curl http://greeting-service.demo.svc.cluster.local:8080/greeting
+popd
+```
+
+
+
 
