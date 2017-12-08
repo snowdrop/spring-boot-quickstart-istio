@@ -50,7 +50,7 @@ Transfer-Encoding: chunked
 ```bash
 minishift --profile istio-demo config set image-caching true
 minishift --profile istio-demo config set memory 3GB
-minishift --profile istio-demo config set openshift-version v3.7.0-rc.0
+minishift --profile istio-demo config set openshift-version v3.7.0
 minishift --profile istio-demo config set vm-driver xhyve
 minishift --profile istio-demo addon enable admin-user
 minishift start --profile istio-demo
