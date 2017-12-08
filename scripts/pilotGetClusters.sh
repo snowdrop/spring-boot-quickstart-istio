@@ -4,7 +4,7 @@
 # Prereq :
 # - httpie tool : https://httpie.org/
 # - Minishift : https://docs.openshift.org/latest/minishift/getting-started/installing.html
-# - Istio is instaled under istio-system namespace
+# - Istio is installed under istio-system namespace
 # - Pilot is exposed behind an OpenShift route : oc expose svc istio-pilot -n istio-system
 #
 # Info about Model to be used to build the request: https://github.com/istio/istio/blob/master/pilot/proxy/context.go
