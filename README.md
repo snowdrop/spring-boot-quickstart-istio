@@ -108,33 +108,26 @@ Follow these instructions to play with Istio and the `Say` service
   . The distro of istio contains the `istioctl` client but also the yaml resources files to be used to install it on OpenShift
 2.  Next, deploy the istio platform on Minishift using this [ansible playbook](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#deploy-istio-on-openshift) 
 
-3. Get the Fabric8 Maven `istio-enricher` enricher and compile it locally
-```bash
-git clone git@github.com:snowdrop/fmp-istio-enricher.git
-cd fmp-istio-enricher
-mvn install
-```
-
-4. Create a new Openshift namespace `demo-istio`. Add to the `default` serviceaccount user, used to authenticate the pod with Openshift, the `privileged` security constraint.
+3. Create a new Openshift namespace `demo-istio`. Add to the `default` serviceaccount user, used to authenticate the pod with Openshift, the `privileged` security constraint.
 
 ```bash
 oc new-project demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
 ```
 
-5. Deploy the Greeting service 
+4. Deploy the Greeting service 
 ```bash
 cd greeting-service
 mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
 ```
 
-6. Install the Say service
+5. Install the Say service
 ```bash
 cd say-service
 mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
 ```
 
-7. Access the `Say` service using the Istio Ingress/Proxy
+6. Access the `Say` service using the Istio Ingress/Proxy
 
 In order to access the service, it is required first to expose the Istio Ingress proxy behind a route that Openshift can route from your localhost machine.
 Then, execute this command
