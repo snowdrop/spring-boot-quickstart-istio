@@ -1,0 +1,88 @@
+{
+  "listeners": [],
+  "lds": {
+    "cluster": "lds",
+    "refresh_delay_ms": 1000
+  },
+  "admin": {
+    "access_log_path": "/dev/stdout",
+    "address": "tcp://127.0.0.1:15000"
+  },
+  "cluster_manager": {
+    "clusters": [
+      {
+        "name": "rds",
+        "connect_timeout_ms": 10000,
+        "type": "strict_dns",
+        "lb_type": "round_robin",
+        "hosts": [
+          {
+            "url": "tcp://istio-pilot.istio-system:8080"
+          }
+        ]
+      },
+      {
+        "name": "lds",
+        "connect_timeout_ms": 10000,
+        "type": "strict_dns",
+        "lb_type": "round_robin",
+        "hosts": [
+          {
+            "url": "tcp://istio-pilot.istio-system:8080"
+          }
+        ]
+      },
+      {
+        "name": "zipkin",
+        "connect_timeout_ms": 10000,
+        "type": "strict_dns",
+        "lb_type": "round_robin",
+        "hosts": [
+          {
+            "url": "tcp://zipkin.istio-system:9411"
+          }
+        ]
+      }
+    ],
+    "sds": {
+      "cluster": {
+        "name": "sds",
+        "connect_timeout_ms": 10000,
+        "type": "strict_dns",
+        "lb_type": "round_robin",
+        "hosts": [
+          {
+            "url": "tcp://istio-pilot.istio-system:8080"
+          }
+        ]
+      },
+      "refresh_delay_ms": 1000
+    },
+    "cds": {
+      "cluster": {
+        "name": "cds",
+        "connect_timeout_ms": 10000,
+        "type": "strict_dns",
+        "lb_type": "round_robin",
+        "hosts": [
+          {
+            "url": "tcp://istio-pilot.istio-system:8080"
+          }
+        ]
+      },
+      "refresh_delay_ms": 1000
+    }
+  },
+  "statsd_udp_ip_address": "172.30.80.101:9125",
+  "tracing": {
+    "http": {
+      "driver": {
+        "type": "zipkin",
+        "config": {
+          "collector_cluster": "zipkin",
+          "collector_endpoint": "/api/v1/spans"
+        }
+      }
+    }
+  }
+}

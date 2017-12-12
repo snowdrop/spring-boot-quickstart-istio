@@ -1,0 +1,299 @@
+{
+  "version_info": "hash_8a895c8cb11f7e28",
+  "route_config_name": "9411",
+  "cluster_name": "rds",
+  "route_table_dump": {
+    "name": "9411",
+    "virtual_hosts": [
+      {
+        "name": "zipkin.istio-system.svc.cluster.local|http",
+        "domains": [
+          "zipkin.istio-system:9411",
+          "zipkin.istio-system",
+          "zipkin.istio-system.svc:9411",
+          "zipkin.istio-system.svc",
+          "zipkin.istio-system.svc.cluster:9411",
+          "zipkin.istio-system.svc.cluster",
+          "zipkin.istio-system.svc.cluster.local:9411",
+          "zipkin.istio-system.svc.cluster.local",
+          "172.30.140.121:9411",
+          "172.30.140.121"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.27e2983cd15f7c71974df421de603175a5026c21"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+{
+  "version_info": "hash_99b03c9622ed99e4",
+  "route_config_name": "9093",
+  "cluster_name": "rds",
+  "route_table_dump": {
+    "name": "9093",
+    "virtual_hosts": [
+      {
+        "name": "istio-mixer.istio-system.svc.cluster.local|http-health",
+        "domains": [
+          "istio-mixer.istio-system:9093",
+          "istio-mixer.istio-system",
+          "istio-mixer.istio-system.svc:9093",
+          "istio-mixer.istio-system.svc",
+          "istio-mixer.istio-system.svc.cluster:9093",
+          "istio-mixer.istio-system.svc.cluster",
+          "istio-mixer.istio-system.svc.cluster.local:9093",
+          "istio-mixer.istio-system.svc.cluster.local",
+          "172.30.122.86:9093",
+          "172.30.122.86"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.5b59344689182358800ea7d1cca7db71eb6627be"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+{
+  "version_info": "hash_db3867450cb7c303",
+  "route_config_name": "8088",
+  "cluster_name": "rds",
+  "route_table_dump": {
+    "name": "8088",
+    "virtual_hosts": [
+      {
+        "name": "servicegraph.istio-system.svc.cluster.local|http",
+        "domains": [
+          "servicegraph.istio-system:8088",
+          "servicegraph.istio-system",
+          "servicegraph.istio-system.svc:8088",
+          "servicegraph.istio-system.svc",
+          "servicegraph.istio-system.svc.cluster:8088",
+          "servicegraph.istio-system.svc.cluster",
+          "servicegraph.istio-system.svc.cluster.local:8088",
+          "servicegraph.istio-system.svc.cluster.local",
+          "172.30.128.98:8088",
+          "172.30.128.98"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.017bd28058cbee759650238f7f79344e4bb3a855"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+{
+  "version_info": "hash_b965343bc62de8c6",
+  "route_config_name": "3000",
+  "cluster_name": "rds",
+  "route_table_dump": {
+    "name": "3000",
+    "virtual_hosts": [
+      {
+        "name": "grafana.istio-system.svc.cluster.local|http",
+        "domains": [
+          "grafana.istio-system:3000",
+          "grafana.istio-system",
+          "grafana.istio-system.svc:3000",
+          "grafana.istio-system.svc",
+          "grafana.istio-system.svc.cluster:3000",
+          "grafana.istio-system.svc.cluster",
+          "grafana.istio-system.svc.cluster.local:3000",
+          "grafana.istio-system.svc.cluster.local",
+          "172.30.101.129:3000",
+          "172.30.101.129"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.16945bf355e267b93666b8261f51cbd174e79c5b"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+{
+  "version_info": "hash_69f2d1b77532749d",
+  "route_config_name": "443",
+  "cluster_name": "rds",
+  "route_table_dump": {
+    "name": "443",
+    "virtual_hosts": [
+      {
+        "name": "istio-pilot.istio-system.svc.cluster.local|http-admission-webhook",
+        "domains": [
+          "istio-pilot.istio-system:443",
+          "istio-pilot.istio-system",
+          "istio-pilot.istio-system.svc:443",
+          "istio-pilot.istio-system.svc",
+          "istio-pilot.istio-system.svc.cluster:443",
+          "istio-pilot.istio-system.svc.cluster",
+          "istio-pilot.istio-system.svc.cluster.local:443",
+          "istio-pilot.istio-system.svc.cluster.local",
+          "172.30.40.10:443",
+          "172.30.40.10"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.3f70f9234c43ff2aa7e70559726b9c643f1559cb"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+{
+  "version_info": "hash_2a777e7f74eb5198",
+  "route_config_name": "80",
+  "cluster_name": "rds",
+  "route_table_dump": {
+    "name": "80",
+    "virtual_hosts": [
+      {
+        "name": "istio-ingress.istio-system.svc.cluster.local|http",
+        "domains": [
+          "istio-ingress.istio-system:80",
+          "istio-ingress.istio-system",
+          "istio-ingress.istio-system.svc:80",
+          "istio-ingress.istio-system.svc",
+          "istio-ingress.istio-system.svc.cluster:80",
+          "istio-ingress.istio-system.svc.cluster",
+          "istio-ingress.istio-system.svc.cluster.local:80",
+          "istio-ingress.istio-system.svc.cluster.local",
+          "172.30.53.14:80",
+          "172.30.53.14"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.a0df20f10f49b49cc105c7765241c62dd20cc7bc"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+{
+  "version_info": "hash_b39db1d1dae8132a",
+  "route_config_name": "8080",
+  "cluster_name": "rds",
+  "route_table_dump": {
+    "name": "8080",
+    "virtual_hosts": [
+      {
+        "name": "greeting-service.demo-istio.svc.cluster.local|http",
+        "domains": [
+          "greeting-service:8080",
+          "greeting-service",
+          "greeting-service.demo-istio:8080",
+          "greeting-service.demo-istio",
+          "greeting-service.demo-istio.svc:8080",
+          "greeting-service.demo-istio.svc",
+          "greeting-service.demo-istio.svc.cluster:8080",
+          "greeting-service.demo-istio.svc.cluster",
+          "greeting-service.demo-istio.svc.cluster.local:8080",
+          "greeting-service.demo-istio.svc.cluster.local",
+          "172.30.185.88:8080",
+          "172.30.185.88"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.63122066cf2af786d555e101d51237c3d5e00da4"
+            }
+          }
+        ]
+      },
+      {
+        "name": "istio-pilot.istio-system.svc.cluster.local|http-discovery",
+        "domains": [
+          "istio-pilot.istio-system:8080",
+          "istio-pilot.istio-system",
+          "istio-pilot.istio-system.svc:8080",
+          "istio-pilot.istio-system.svc",
+          "istio-pilot.istio-system.svc.cluster:8080",
+          "istio-pilot.istio-system.svc.cluster",
+          "istio-pilot.istio-system.svc.cluster.local:8080",
+          "istio-pilot.istio-system.svc.cluster.local",
+          "172.30.40.10:8080",
+          "172.30.40.10"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.232bcd00fd4f182aa3c6db69cc967f58f9bd594a"
+            }
+          }
+        ]
+      },
+      {
+        "name": "say-service.demo-istio.svc.cluster.local|http",
+        "domains": [
+          "say-service:8080",
+          "say-service",
+          "say-service.demo-istio:8080",
+          "say-service.demo-istio",
+          "say-service.demo-istio.svc:8080",
+          "say-service.demo-istio.svc",
+          "say-service.demo-istio.svc.cluster:8080",
+          "say-service.demo-istio.svc.cluster",
+          "say-service.demo-istio.svc.cluster.local:8080",
+          "say-service.demo-istio.svc.cluster.local",
+          "172.30.12.130:8080",
+          "172.30.12.130"
+        ],
+        "routes": [
+          {
+            "match": {
+              "prefix": "/"
+            },
+            "route": {
+              "cluster": "out.b049686bf16df6e6cb21dbb422f29a70922fddcf"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

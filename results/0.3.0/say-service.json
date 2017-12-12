@@ -1,0 +1,6 @@
+{"timestamp":1513101720880,"status":500,"error":"Internal Server Error","exception":"org.springframework.web.client.ResourceAccessException","message":"I/O error on GET request for \"http://greeting-service:8080/greeting\": Connection refused (Connection refused); nested exception is java.net.ConnectException: Connection refused (Connection refused)","path":"/say"}
+
+curl: (7) Failed to connect to greeting-service port 8080: Connection refused
+
+
+curl: (7) Failed to connect to greeting-service.demo-istio port 8080: Connection refused
