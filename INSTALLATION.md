@@ -70,10 +70,6 @@ Prerequesite: Ansible 2.4 must be installed on your laptop
 
 ```
 pushd $(mktemp -d)
-git clone git@github.com:snowdrop/fmp-istio-enricher.git && cd fmp-istio-enricher
-mvn install
-cd ..
-
 git clone git@github.com:snowdrop/istio-integration.git
 git checkout 0.3.0
 
