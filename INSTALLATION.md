@@ -29,14 +29,9 @@ Prerequesite:
 
 ```
 pushd $(mktemp -d)
-echo "Git clone project to compile the Fabric8 Istio enricher whci can inject proxy"
-git clone git@github.com:snowdrop/fmp-istio-enricher.git && cd fmp-istio-enricher
-mvn install
-cd ..
-
+echo "Git clone ansible project to install istio distrio or project on openshift"
 git clone git@github.com:snowdrop/istio-integration.git
 
-echo "Install istio distro and platform"
 ansible-playbook istio-integration/ansible/main.yml -t install-distro
 ansible-playbook istio-integration/ansible/main.yml -t install-istio
 
@@ -70,6 +65,7 @@ Prerequesite: Ansible 2.4 must be installed on your laptop
 
 ```
 pushd $(mktemp -d)
+echo "Git clone ansible project to install istio distrio or project on openshift. Changer version to 0.3.0"
 git clone git@github.com:snowdrop/istio-integration.git
 sed -i.bk 's/release_tag_name: \"0.2.12\"/release_tag_name: \"0.3.0\"/g' istio-integration/ansible/etc/config.yaml
 
@@ -77,7 +73,9 @@ sed -i.bk 's/release_tag_name: \"0.2.12\"/release_tag_name: \"0.3.0\"/g' istio-i
 ansible-playbook istio-integration/ansible/main.yml -t install-istio
 
 git clone git@github.com:snowdrop/spring-boot-quickstart-istio.git && cd spring-boot-quickstart-istio
-git checkout 0.3.0
+sed -i.bk 's/istioVersion: \"0.2.12\"/istioVersion: \"0.3.0\"/g' greeting-service/src/main/istio/profiles.yml
+sed -i.bk 's/istioVersion: \"0.2.12\"/istioVersion: \"0.3.0\"/g' say-service/src/main/istio/profiles.yml
+
 oc new-project demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
 
