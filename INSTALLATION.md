@@ -71,7 +71,7 @@ Prerequesite: Ansible 2.4 must be installed on your laptop
 ```
 pushd $(mktemp -d)
 git clone git@github.com:snowdrop/istio-integration.git
-git checkout 0.3.0
+sed -i.bk 's/release_tag_name: \"0.2.12\"/release_tag_name: \"0.3.0\"/g' istio-integration/ansible/etc/config.yaml
 
 # Install istio distro and platform
 ansible-playbook istio-integration/ansible/main.yml -t install-istio
