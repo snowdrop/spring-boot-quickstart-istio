@@ -10,12 +10,12 @@ Execute these commands within a terminal to create a profile, next a Xhye vm run
 ```bash
 minishift stop
 minishift delete --force  
-minishift --profile demo config set image-caching true
-minishift --profile demo config set memory 3GB
-minishift --profile demo config set openshift-version v3.7.0
-minishift --profile demo config set vm-driver xhyve
-minishift --profile demo addon enable admin-user
-minishift start --profile demo
+minishift --profile istio-0-2-12 config set image-caching true
+minishift --profile istio-0-2-12 config set memory 3GB
+minishift --profile istio-0-2-12 config set openshift-version v3.7.0
+minishift --profile istio-0-2-12 config set vm-driver xhyve
+minishift --profile istio-0-2-12 addon enable admin-user
+minishift start --profile istio-0-2-12 
 oc login -u admin -p admin
 ```
 
