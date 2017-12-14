@@ -92,7 +92,7 @@ _HTTP Client -> issue http request to call the `http://say-service/say` endpoint
 -> request forwarded to the Envoy Proxy -> Pass HTTP Request to Say Service running within the pod -> Call the `http://greeting-service/greeting` service running within another pod -> Populate response which is returned_
 
 To allow to inject the Envoy Proxy and initialize correctly the pod to route all the internal traffic
-to ththe Envoyis Proxy, we will use the Fabric8 Maven Plugin using a new Enricher module called `istio-enricher`.
+to the Envoy Proxy, we will use the Fabric8 Maven Plugin using a new Enricher module called `istio-enricher`.
 
 Remarks: 
 
