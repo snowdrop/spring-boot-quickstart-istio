@@ -96,9 +96,8 @@ to the Envoy Proxy, we will use the Fabric8 Maven Plugin using a new Enricher mo
 
 Remarks: 
 
-- This code has been tested against Istio 0.2.12. 
-- Due to a [bug](https://github.com/istio/istio/issues/2031) discovered with istio 0.3.0, we don't recommend to install it till it is resolved.
-- By adopting this enricher, then it is not longer required to use istioctl client !
+- This code has been tested against Istio 0.2.12, 0.3.0. 
+- By adopting the Fabric8 Maven plugin Istio enricher, then it is not longer required to use istioctl client !
 
 ### Instructions 
 
@@ -115,19 +114,12 @@ oc new-project demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
 ```
 
-4. Deploy the Greeting service 
+4. Deploy the Say and Greeting services 
 ```bash
-cd greeting-service
 mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
 ```
 
-5. Install the Say service
-```bash
-cd say-service
-mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
-```
-
-6. Access the `Say` service using the Istio Ingress/Proxy
+5. Access the `Say` service using the Istio Ingress/Proxy
 
 In order to access the service, it is required first to expose the Istio Ingress proxy behind a route that Openshift can route from your localhost machine.
 Then, execute this command
@@ -170,6 +162,8 @@ x-envoy-upstream-service-time: 63
 ```
 
 Enjoy this first **Istio** and **Spring Boot** Developer Experience !!
+
+
 
 # Troubleshoot
 

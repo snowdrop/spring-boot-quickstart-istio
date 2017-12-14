@@ -1,5 +1,9 @@
 # Instructions to install minishift, istio, microservices
 
+  * [Create a Minishift vm](#create-a-minishift-vm)
+  * [Install Istio and Spring Boot Microservices](#install-istio)
+  * [Install Spring Boot Microservices on OpenShift](#without-istio)
+
 ## Create a Minishift vm
 
 Prequisite is that minishift is installed on your [laptop](https://docs.openshift.org/latest/minishift/getting-started/installing.html).
