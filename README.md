@@ -116,7 +116,7 @@ oc adm policy add-scc-to-user privileged -z default -n demo-istio
 
 4. Deploy the Say and Greeting services 
 ```bash
-mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
+mvn clean package fabric8:deploy -Pistio-openshift
 ```
 
 5. Access the `Say` service using the Istio Ingress/Proxy

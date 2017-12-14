@@ -55,7 +55,7 @@ sed -i.bk 's/istioVersion: \"0.2.12\"/istioVersion: \"0.3.0\"/g' say-service/src
 oc new-project demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
 
-mvn clean package fabric8:deploy -Pistio-openshift -Dfabric8.resourceDir=src/main/istio
+mvn clean package fabric8:deploy -Pistio-openshift
 
 sleep 30s
 oc expose svc istio-ingress -n istio-system
