@@ -1,4 +1,13 @@
-cd results/0.3.0
+
+minishift start --profile istio-0-3-0
+oc login -u admin -p admin
+oc project demo-istio
+podName=$(oc get pods -o jsonpath='{.items[*].metadata.name}' -l app=say-service)
+oc rsh -c istio-proxy $podName curl http://localhost:15000/logging?upstream=trace
+oc logs -f -c istio-proxy $podName
+
+
+
 
 podName=$(oc get pods -o jsonpath='{.items[*].metadata.name}' -l app=say-service)
 oc rsh -c istio-proxy $podName
@@ -6,10 +15,12 @@ sudo su -
 iptables -t nat -L
 exit
 
+oc rsh -c istio-proxy $podName curl http://localhost:15000/logging?router=debug
+
 oc expose svc istio-pilot -n istio-system
 ../../scripts/pilotGetRegistration.sh > registration.json
 
-oc rsh -c istio-proxy $podName cat /etc/istio/proxy/envoy-rev1.json > envoy-config.json
+oc rsh -c istio-proxy $podName cat minsih > envoy-config.json
 oc rsh -c istio-proxy $podName cat /etc/istio/proxy/envoy-rev0.json > envoy-config.json
 
 oc rsh -c istio-proxy $podName curl http://localhost:8080/say > say-service.json

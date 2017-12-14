@@ -1,27 +1,29 @@
 # Instructions to install minishift, istio, microservices
 
-# Create a Minishift vm for the demo
+## Create a Minishift vm
 
 Prequisite is that minishift is installed on your [laptop](https://docs.openshift.org/latest/minishift/getting-started/installing.html).
 If minishift is not installed on your machine, you can use the following ansible [playbook to install it](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#install-minishift-optional)
 
-Execute these commands within a terminal to create a profile, next a Xhye vm running boot2docker where Openshift 3.7 will be deployed
+Execute these commands within a terminal to create a profile using Xhyve drive to install into boot2docker vm Openshift 3.7 
+To use istio 0.3.0, simply change the `ISTIO_VERSION` variable
 
 ```bash
+export ISTIO_VERSION="0-2-12"
 minishift stop
 minishift delete --force  
-minishift --profile istio-0-2-12 config set image-caching true
-minishift --profile istio-0-2-12 config set memory 3GB
-minishift --profile istio-0-2-12 config set openshift-version v3.7.0
-minishift --profile istio-0-2-12 config set vm-driver xhyve
-minishift --profile istio-0-2-12 addon enable admin-user
-minishift start --profile istio-0-2-12 
+minishift --profile istio-$ISTIO_VERSION config set image-caching true
+minishift --profile istio-$ISTIO_VERSION config set memory 3GB
+minishift --profile istio-$ISTIO_VERSION config set openshift-version v3.7.0
+minishift --profile istio-$ISTIO_VERSION config set vm-driver xhyve
+minishift --profile istio-$ISTIO_VERSION addon enable admin-user
+minishift start --profile istio-$ISTIO_VERSION
 oc login -u admin -p admin
 ```
 
-## Using Istio
+## Install Istio
 
-Next to install istio and next the quickstart, then execute the following instructions within a terminal.
+Next, to install istio and the 2 Spring Boot microservices, execute the following instructions within a terminal.
 
 Prerequesite: 
 - Ansible 2.4 must be installed on your laptop
@@ -30,7 +32,6 @@ Prerequesite:
 Remarks : 
 
 - To switch from the istio version 0.2.12 to 0.3.0, then use the `sed -i.bk s//g` instructions
-- Unfortunately, this scenario fails on istio 0.3.0 due to this [issue](https://github.com/istio/istio/issues/2031) !!
 
 ```bash
 pushd $(mktemp -d)
