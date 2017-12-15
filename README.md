@@ -6,6 +6,7 @@ Table of Contents
       * [Deploy the 2 Microservices on OpenShift](#deploy-the-2-microservices-on-openshift)
       * [Istio and Say plus Greeting Microservices](#istio-and-say-plus-greeting-microservices)
          * [Instructions](#instructions)
+         * [Migrate to another version](#migrate-to-another-version)
    * [Troubleshoot](#troubleshoot)
       * [How to question the Envoy Proxy](#how-to-question-the-envoy-proxy)
       * [Tell me if my route is well registered under RDS](#tell-me-if-my-route-is-well-registered-under-rds)
@@ -167,7 +168,41 @@ x-envoy-upstream-service-time: 63
 
 Enjoy this first **Istio** and **Spring Boot** Developer Experience !!
 
+### Migrate to another version
 
+To switch from an istio version to another, then use the `sed -i.bk s//g` instructions as defined here after.
+They will allow to change the version used by the Ansible tasks to download the required distribution and play the scripts.
+For the Spring Boot Quickstarts, the profile used by the Fabric8 Maven Plugin will be changed accordingly.
+
+The commands to be executed have been designed as a all in one guide !
+
+```bash
+pushd $(mktemp -d)
+echo "Git clone ansible project to install istio distro, project on openshift"
+git clone git@github.com:snowdrop/istio-integration.git
+sed -i.bk 's/release_tag_name: \"0.2.12\"/release_tag_name: \"0.3.0\"/g' istio-integration/ansible/etc/config.yaml (OPTIONAL)
+
+ansible-playbook istio-integration/ansible/main.yml -t install-distro
+ansible-playbook istio-integration/ansible/main.yml -t install-istio
+
+echo "Sleep at least 5min to be sure that all the docker images of istio will be downloaded and istio deployed"
+sleep 5m
+git clone git@github.com:snowdrop/spring-boot-quickstart-istio.git && cd spring-boot-quickstart-istio
+sed -i.bk 's/istioVersion: \"0.2.12\"/istioVersion: \"0.3.0\"/g' greeting-service/src/main/istio/profiles.yml (OPTIONAL)
+sed -i.bk 's/istioVersion: \"0.2.12\"/istioVersion: \"0.3.0\"/g' say-service/src/main/istio/profiles.yml (OPTIONAL)
+
+oc new-project demo-istio
+oc adm policy add-scc-to-user privileged -z default -n demo-istio
+
+mvn clean package fabric8:deploy -Pistio-openshift
+
+sleep 30s
+oc expose svc istio-ingress -n istio-system
+
+export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
+http -v $SAY_URL
+popd
+```
 
 # Troubleshoot
 
