@@ -177,6 +177,16 @@ For the Spring Boot Quickstarts, the profile used by the Fabric8 Maven Plugin wi
 The commands to be executed have been designed as a all in one guide !
 
 ```bash
+echo "Create a Minishift VM" 
+minishift --profile istio-demo config set image-caching true
+minishift --profile istio-demo config set memory 3GB
+minishift --profile istio-demo config set openshift-version v3.7.0
+minishift --profile istio-demo config set vm-driver xhyve
+minishift --profile istio-demo addon enable admin-user
+minishift start --profile istio-demo
+echo "Log to Openshift and create a demo project"
+oc login $(minishift ip):8443 -u admin -p admin
+
 pushd $(mktemp -d)
 echo "Git clone ansible project to install istio distro, project on openshift"
 git clone git@github.com:snowdrop/istio-integration.git
