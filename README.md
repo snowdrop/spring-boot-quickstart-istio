@@ -52,7 +52,7 @@ Transfer-Encoding: chunked
 
 ## Deploy the 2 Microservices on OpenShift
 
-- Start a Minishift VM on MacOS using Xhyve hypervisor
+- Start a Minishift VM on MacOS using Xhyve hypervisor and where Openshift 3.7 will be installed
 ```bash
 minishift --profile istio-demo config set image-caching true
 minishift --profile istio-demo config set memory 3GB
@@ -61,6 +61,9 @@ minishift --profile istio-demo config set vm-driver xhyve
 minishift --profile istio-demo addon enable admin-user
 minishift start --profile istio-demo
 ```
+
+Remark: As Istio installs on OpenShift platform Kubernetes [`CustomResource`](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) which are
+only supported since the version 3.7, this is the reason why it is mandatory to install this version !
 
 - Log to Openshift and create a `demo` project
 ```bash
