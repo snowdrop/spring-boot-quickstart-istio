@@ -79,6 +79,10 @@ mvn clean fabric8:deploy -Popenshift
 ```bash
 SAY_SERVICE=$(minishift openshift service --url say-service)
 http $SAY_SERVICE/say
+
+or 
+
+curl $SAY_SERVICE/say
 ```
 
 ## Istio and Say plus Greeting Microservices
