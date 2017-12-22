@@ -188,7 +188,7 @@ oc login $(minishift ip):8443 -u admin -p admin
 pushd $(mktemp -d)
 echo "Git clone ansible project to install istio distro, project on openshift"
 git clone git@github.com:snowdrop/istio-integration.git
-sed -i.bk 's/release_tag_name: \"0.2.12\"/release_tag_name: \"0.3.0\"/g' istio-integration/ansible/etc/config.yaml (OPTIONAL)
+sed -i.bk 's/release_tag_name: \"0.3.0\"/release_tag_name: \"0.4.0\"/g' istio-integration/ansible/etc/config.yaml (OPTIONAL)
 
 ansible-playbook istio-integration/ansible/main.yml -t install-distro
 ansible-playbook istio-integration/ansible/main.yml -t install-istio
@@ -196,8 +196,8 @@ ansible-playbook istio-integration/ansible/main.yml -t install-istio
 echo "Sleep at least 5min to be sure that all the docker images of istio will be downloaded and istio deployed"
 sleep 5m
 git clone git@github.com:snowdrop/spring-boot-quickstart-istio.git && cd spring-boot-quickstart-istio
-sed -i.bk 's/istioVersion: \"0.2.12\"/istioVersion: \"0.3.0\"/g' greeting-service/src/main/istio/profiles.yml (OPTIONAL)
-sed -i.bk 's/istioVersion: \"0.2.12\"/istioVersion: \"0.3.0\"/g' say-service/src/main/istio/profiles.yml (OPTIONAL)
+sed -i.bk 's/istioVersion: \"0.3.0\"/istioVersion: \"0.4.0\"/g' greeting-service/src/main/istio/profiles.yml (OPTIONAL)
+sed -i.bk 's/istioVersion: \"0.3.0\"/istioVersion: \"0.4.0\"/g' say-service/src/main/istio/profiles.yml (OPTIONAL)
 
 oc new-project demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
