@@ -176,12 +176,12 @@ The commands to be executed have been designed as a all in one guide !
 
 ```bash
 echo "Create a Minishift VM" 
-minishift --profile istio-demo config set image-caching true
-minishift --profile istio-demo config set memory 3GB
-minishift --profile istio-demo config set openshift-version v3.7.0
-minishift --profile istio-demo config set vm-driver xhyve
-minishift --profile istio-demo addon enable admin-user
-minishift start --profile istio-demo
+minishift --profile istio-0-4-0 config set image-caching true
+minishift --profile istio-0-4-0 config set memory 3GB
+minishift --profile istio-0-4-0 config set openshift-version v3.7.0
+minishift --profile istio-0-4-0 config set vm-driver xhyve
+minishift --profile istio-0-4-0 addon enable admin-user
+minishift start --profile isti-0-4-0
 echo "Log to Openshift and create a demo project"
 oc login $(minishift ip):8443 -u admin -p admin
 
