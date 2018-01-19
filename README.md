@@ -166,13 +166,12 @@ x-envoy-upstream-service-time: 63
 
 Enjoy this first **Istio** and **Spring Boot** Developer Experience !!
 
-## Migrate to another Istio version
-
-To switch from an istio version to another, then use the `sed -i.bk s//g` instructions as defined here after.
-They will allow to change the version used by the Ansible tasks to download the required distribution and play the scripts.
-For the Spring Boot Quickstarts, the profile used by the Fabric8 Maven Plugin will be changed accordingly.
+## All in one instructions
 
 The commands to be executed have been designed as a all in one guide !
+
+Remark : To switch from an istio version to another, then use the `sed -i.bk s//g` instructions as defined here after.
+They will allow to change the Fabric8 Maven Plugin profile of the quickstarts.
 
 ```bash
 echo "Create a Minishift VM" 
