@@ -6,7 +6,8 @@ Table of Contents
    * [On OpenShift](#on-openshift)
    * [On Openshift using Istio Service Mesh](#on-openshift-using-istio-service-mesh)
       * [Instructions](#instructions)
-      * [Migrate to another Istio version](#migrate-to-another-istio-version)
+      * [All in one instructions](#all-in-one-instructions)
+
 
 # Instructions to play with Say and Greeting Spring Boot Microservices 
 
