@@ -190,7 +190,7 @@ pushd $(mktemp -d)
 echo "Git clone ansible project to install istio distro, project on openshift"
 git clone git@github.com:snowdrop/istio-integration.git && cd istio-integration
 ansible-playbook ansible/main.yml -t istio -e '{"istio": {"release_tag_name": "0.4.0", "auth": true, "jaeger": false}}'
-cd ../..
+cd ..
 
 echo "Sleep at least 5min to be sure that all the docker images of istio will be downloaded and istio deployed"
 sleep 5m
