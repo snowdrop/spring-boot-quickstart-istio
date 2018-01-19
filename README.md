@@ -99,7 +99,7 @@ to the Envoy Proxy, we will use the Fabric8 Maven Plugin using a new Enricher mo
 
 Remarks: 
 
-- This code has been tested against Istio 0.2.12, 0.3.0. 
+- This code has been tested against Istio 0.2.12, 0.3.0 and 0.4.0. 
 - By adopting the Fabric8 Maven plugin Istio enricher, then it is not longer required to use istioctl client !
 
 ## Instructions 
@@ -176,28 +176,27 @@ The commands to be executed have been designed as a all in one guide !
 
 ```bash
 echo "Create a Minishift VM" 
-minishift --profile istio-0-4-0 config set image-caching true
-minishift --profile istio-0-4-0 config set memory 3GB
-minishift --profile istio-0-4-0 config set openshift-version v3.7.0
-minishift --profile istio-0-4-0 config set vm-driver xhyve
-minishift --profile istio-0-4-0 addon enable admin-user
-minishift start --profile istio-0-4-0
+minishift profile set istio
+minishift --profile istio config set image-caching true
+minishift --profile istio config set memory 4GB
+minishift --profile istio config set openshift-version v3.7.1
+minishift --profile istio config set vm-driver xhyve
+minishift --profile istio addon enable admin-user
+minishift start --profile istio
 echo "Log to Openshift and create a demo project"
 oc login $(minishift ip):8443 -u admin -p admin
 
 pushd $(mktemp -d)
 echo "Git clone ansible project to install istio distro, project on openshift"
-git clone git@github.com:snowdrop/istio-integration.git
-sed -i.bk 's/release_tag_name: \"0.3.0\"/release_tag_name: \"0.4.0\"/g' istio-integration/ansible/etc/config.yaml
-
-ansible-playbook istio-integration/ansible/main.yml -t install-distro
-ansible-playbook istio-integration/ansible/main.yml -t install-istio
+git clone git@github.com:snowdrop/istio-integration.git && cd istio-integration/ansible
+ansible-playbook main.yml -t istio -e '{"istio": {"release_tag_name": "0.4.0", "auth": true, "jaeger": false}}'
+cd ..
 
 echo "Sleep at least 5min to be sure that all the docker images of istio will be downloaded and istio deployed"
 sleep 5m
 git clone git@github.com:snowdrop/spring-boot-quickstart-istio.git && cd spring-boot-quickstart-istio
-sed -i.bk 's/istioVersion: \"0.3.0\"/istioVersion: \"0.4.0\"/g' greeting-service/src/main/istio/profiles.yml
-sed -i.bk 's/istioVersion: \"0.3.0\"/istioVersion: \"0.4.0\"/g' say-service/src/main/istio/profiles.yml
+#sed -i.bk 's/istioVersion: \"0.3.0\"/istioVersion: \"0.4.0\"/g' greeting-service/src/main/istio/profiles.yml
+#sed -i.bk 's/istioVersion: \"0.3.0\"/istioVersion: \"0.4.0\"/g' say-service/src/main/istio/profiles.yml
 
 oc new-project demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
