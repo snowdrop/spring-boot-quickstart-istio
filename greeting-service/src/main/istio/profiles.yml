@@ -26,7 +26,6 @@
       fmp-istio-enricher:
         istioVersion: "0.4.0"
         enableCoreDump: "false"
-        withDebugImage: "true"
 
   generator:
     includes:
