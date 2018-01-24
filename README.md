@@ -15,8 +15,7 @@ This Quickstart contains 2 Spring Boot applications where the REST `Say` service
 The project can be used locally and launched using Spring Boot Maven plugin or deployed on OpenShift.
 
 To support multiple environments, 2 maven profiles have been defined and will be used to pass the endpoint of the greeting service
-within the `application.yaml` file. The `development` profile is used when the application is launched locally using Spring Boot Maven plugin
-while the `Openshift` profile will be used when the `Say` application is running on OpenShift. 
+within the `application.yaml` file. The `development` profile is used when the application is launched locally using Spring Boot Maven plugin while the `openshift` profile will be used when the `Say` application is running on OpenShift. 
 
 ## Locally
 
