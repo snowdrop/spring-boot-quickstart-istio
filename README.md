@@ -100,15 +100,13 @@ to the Envoy Proxy, we will use the Fabric8 Maven Plugin using a new Enricher mo
 Remarks: 
 
 - This code has been tested against Istio 0.2.12, 0.3.0 and 0.4.0. 
-- By adopting the Fabric8 Maven plugin Istio enricher, then it is not longer required to use istioctl client !
+- Using Fabric8 Maven plugin Istio enricher enables deployment without having to use the `istioctl` client!
 
-## Instructions 
+### Instructions 
 
 Follow these instructions to play with Istio and the `Say` service
 
-1. Install the istio binary distribution locally according to these [instructions](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#download-and-install-istio-distribution) using Ansible 2.4
-  . The distro of istio contains the `istioctl` client but also the yaml resources files to be used to install it on OpenShift
-2.  Next, deploy the istio platform on Minishift using this [ansible playbook](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#deploy-istio-on-openshift) 
+1. Install Istio using the Ansible playbook found at https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md  
 
 3. Create a new OpenShift namespace `demo-istio`. Add the `privileged` security constraint to the `default` service account user
 used to authenticate the pod with OpenShift.
