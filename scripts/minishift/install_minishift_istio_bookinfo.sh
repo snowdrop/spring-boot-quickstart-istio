@@ -1,14 +1,17 @@
 #! /bin/sh
 
-minishift delete --profile istio -f
-minishift profile delete istio -f
+ISTIO_PROFILE_DIR="$HOME/.minishift/profiles/istio"
 
-minishift profile set istio
-minishift --profile istio config set image-caching true
-minishift --profile istio config set memory 4GB
-minishift --profile istio config set openshift-version v3.7.1
-minishift --profile istio config set vm-driver xhyve
-minishift --profile istio addon enable admin-user
+if [ ! -d "$ISTIO_PROFILE_DIR" ]; then
+  echo "### Istio profile doesn't exist. Let's create it .... $ISTIO_PROFILE_DIR ####"
+  minishift profile set istio
+  minishift --profile istio config set image-caching true
+  minishift --profile istio config set memory 4GB
+  minishift --profile istio config set openshift-version v3.7.1
+  minishift --profile istio config set vm-driver xhyve
+  minishift --profile istio addon enable admin-user
+fi
+
 minishift start --profile istio
 
 echo "Log to OpenShift and install istio"
