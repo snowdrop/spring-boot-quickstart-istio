@@ -4,7 +4,7 @@ Table of Contents
    * [Instructions to play with Say and Greeting Spring Boot Microservices](#instructions-to-play-with-say-and-greeting-spring-boot-microservices)
    * [Locally](#locally)
    * [On OpenShift](#on-openshift)
-   * [On Openshift using Istio Service Mesh](#on-openshift-using-istio-service-mesh)
+   * [On OpenShift using Istio Service Mesh](#on-openshift-using-istio-service-mesh)
       * [Instructions](#instructions)
       * [All in one instructions](#all-in-one-instructions)
 
@@ -18,7 +18,7 @@ To support multiple environments, 2 maven profiles have been defined and will be
 within the `application.yaml` file. The `development` profile is used when the application is launched locally using Spring Boot Maven plugin
 while the `Openshift` profile will be used when the `Say` application is running on OpenShift. 
 
-# Locally
+## Locally
 
 - Greeting Service
 ```bash
@@ -46,9 +46,9 @@ Transfer-Encoding: chunked
 }
 ```
 
-# On OpenShift
+## On OpenShift
 
-- Start a Minishift VM on MacOS using Xhyve hypervisor and where Openshift 3.7 will be installed
+- Start a Minishift VM on MacOS using Xhyve hypervisor and where OpenShift 3.7 will be installed
 ```bash
 minishift --profile istio-demo config set image-caching true
 minishift --profile istio-demo config set memory 3GB
@@ -61,7 +61,7 @@ minishift start --profile istio-demo
 Remark: As Istio installs on OpenShift platform Kubernetes [`CustomResource`](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) which are
 only supported since the version 3.7, this is the reason why it is mandatory to install this version !
 
-- Log to Openshift and create a `demo` project
+- Log to OpenShift and create a `demo` project
 ```bash
 oc login $(minishift ip):8443 -u admin -p admin
 oc new-project demo
@@ -85,9 +85,9 @@ or
 curl $SAY_SERVICE/say
 ```
 
-# On Openshift using Istio Service Mesh
+## On OpenShift using Istio Service Mesh
 
-The following instructions will let you to install 2 Spring Boot applications, top of the Istio Site mesh where the `Say Service` is calling the
+The following instructions will let you to install 2 Spring Boot applications, on top of the Istio Site mesh where the `Say Service` is calling the
  `Greeting service` to get as response `Hello World`.
 
 When, an external HTTP client will consume the service using either `curl` or `httpie` tools, then the HTTP request will be propagated as such :
@@ -111,7 +111,8 @@ Follow these instructions to play with Istio and the `Say` service
   . The distro of istio contains the `istioctl` client but also the yaml resources files to be used to install it on OpenShift
 2.  Next, deploy the istio platform on Minishift using this [ansible playbook](https://github.com/snowdrop/istio-integration/blob/master/README-ANSIBLE.md#deploy-istio-on-openshift) 
 
-3. Create a new Openshift namespace `demo-istio`. Add to the `default` serviceaccount user, used to authenticate the pod with Openshift, the `privileged` security constraint.
+3. Create a new OpenShift namespace `demo-istio`. Add the `privileged` security constraint to the `default` service account user
+used to authenticate the pod with OpenShift.
 
 ```bash
 oc new-project demo-istio
@@ -125,7 +126,7 @@ mvn clean package fabric8:deploy -Pistio-openshift
 
 5. Access the `Say` service using the Istio Ingress/Proxy
 
-In order to access the service, it is required first to expose the Istio Ingress proxy behind a route that Openshift can route from your localhost machine.
+In order to access the service, it is required first to expose the Istio Ingress proxy behind a route that OpenShift can route from your localhost machine.
 Then, execute this command
 ```bash
 oc expose svc istio-ingress -n istio-system
@@ -183,7 +184,7 @@ minishift --profile istio config set openshift-version v3.7.1
 minishift --profile istio config set vm-driver xhyve
 minishift --profile istio addon enable admin-user
 minishift start --profile istio
-echo "Log to Openshift and create a demo project"
+echo "Log to OpenShift and create a demo project"
 oc login $(minishift ip):8443 -u admin -p admin
 
 pushd $(mktemp -d)
