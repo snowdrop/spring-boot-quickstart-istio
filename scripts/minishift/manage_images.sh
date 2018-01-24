@@ -1,11 +1,15 @@
 #!/bin/bash
 
+#
+#  Minishift Doc : https://docs.openshift.org/latest/minishift/using/image-caching.html
+#
 # Command usage
 # ./manage_images.sh [COMMAND]
 #
 # Available Commands:
 # export     Export Docker images to minishift cache
 # import     Import Docker images to minishift cache
+#
 
 docker_images=(
   istio/istio-ca:0.4.0
