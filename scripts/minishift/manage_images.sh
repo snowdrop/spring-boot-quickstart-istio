@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Command usage
+# ./manage_images.sh [COMMAND]
+#
+# Available Commands:
+# export     Export Docker images to minishift cache
+# import     Import Docker images to minishift cache
+
 docker_images=(
   istio/istio-ca:0.4.0
   istio/grafana:0.4.0
@@ -21,4 +28,4 @@ docker_images=(
 )
 IMAGES=$(printf "%s " "${docker_images[@]}")
 
-minishift image export $IMAGES
+minishift image $1 $IMAGES
