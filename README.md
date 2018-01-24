@@ -116,7 +116,8 @@ oc new-project demo-istio
 oc adm policy add-scc-to-user privileged -z default -n demo-istio
 ```
 
-4. Deploy the Say and Greeting services 
+4. Deploy the Say and Greeting services. *Note*: you need to log into OpenShift using an admin account 
+(`admin/admin` by default on minishift) because Istio deployment needs access to the `istio-system` namespace. 
 ```bash
 mvn clean package fabric8:deploy -Pistio-openshift
 ```
