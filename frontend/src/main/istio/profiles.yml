@@ -1,0 +1,36 @@
+# Profile containing Istio enricher
+- name: istio-spring-boot-profile
+  enricher:
+    includes:
+    - fmp-name
+    - fmp-controller
+    - fmp-service
+    - fmp-image
+    - fmp-portname
+    - fmp-project
+    - fmp-pod-annotations
+    - fmp-debug
+    - fmp-merge
+    - fmp-remove-build-annotations
+    - fmp-volume-permission
+    - f8-expose
+    - fmp-istio-enricher
+    # Health checks
+    - spring-boot-health-check
+    - docker-health-check
+    - fmp-dependency
+    - f8-watch
+    excludes:
+    - fmp-openshift-route
+    config:
+      fmp-istio-enricher:
+        istioVersion: "0.4.0"
+        enableCoreDump: "false"
+
+  generator:
+    includes:
+    - spring-boot
+  watcher:
+    includes:
+    - spring-boot
+    - docker-image

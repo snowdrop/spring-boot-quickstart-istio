@@ -19,6 +19,7 @@
     <modules>
         <module>greeting-service</module>
         <module>say-service</module>
+        <module>frontend</module>
     </modules>
 
     <dependencyManagement>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Spring Boot Istio Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <h2>Try the Say service</h2>
+
+        <p th:text="${sayServiceURI}"/>
+
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="World"/>
+            </div>
+            <button id="invoke" type="submit" class="btn btn-success">Invoke</button>
+        </form>
+
+        <h3>Result:</h3>
+        <pre><code id="greeting-result">Invoke the service to see the result.</code></pre>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $("#invoke").click(function (e) {
+            var service = '${sayServiceURI}';
+            var n = $("#name").val() || "World";
+            $.getJSON(service + "?name=" + n, function (res) {
+                $("#greeting-result").html(JSON.stringify(res));
+            }).fail(function (res) {
+                $("#greeting-result").html(res.responseJSON.error + " - " + res.responseJSON.message);
+            });
+            e.preventDefault();
+        });
+    });
+</script>
+</body>
+</html>
