@@ -211,9 +211,3 @@ export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url
 http -v $SAY_URL
 popd
 ```
-
-## Troubleshoot
-
-```bash
-
-```
