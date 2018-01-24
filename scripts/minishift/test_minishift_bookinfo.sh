@@ -6,5 +6,5 @@ while [ $(curl --write-out %{http_code} --silent --output /dev/null http://${GAT
      echo "Wait till we get http response 200 .... from http://${GATEWAY_URL}/productpage"
      sleep 30
   done
-echo "SUCCESSFULLY TESTED : Service replied : $(curl -s http://${GATEWAY_URL}/productpage)"
+echo "SUCCESSFULLY TESTED : Service replied"
 
