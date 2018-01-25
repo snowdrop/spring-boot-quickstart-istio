@@ -11,7 +11,8 @@ Table of Contents
 
 # Instructions to play with Say and Greeting Spring Boot Microservices 
 
-This Quickstart contains 2 Spring Boot applications where the REST `Say` service calls the REST `Greeting` service. 
+This Quickstart contains 3 Spring Boot applications. A static front application that you can use to send a message. Then this application will issue at the backend side a REST request to 
+call the `Say` service which also itself will call the `Greeting` service by issuying a REST call. 
 The project can be used locally and launched using Spring Boot Maven plugin or deployed on OpenShift.
 
 To support multiple environments, 2 maven profiles have been defined and will be used to pass the endpoint of the greeting service
@@ -19,42 +20,38 @@ within the `application.yaml` file. The `development` profile is used when the a
 
 ## Locally
 
+- Frontend Service
+```bash
+cd frontend
+mvn clean package spring-boot:run
+```
+
 - Greeting Service
 ```bash
 cd greeting-service
-mvn clean compile && mvn spring-boot:run
+mvn clean compile spring-boot:run
 ```
 
 - Say Service
 ```bash
 cd say-service
-mvn compile spring-boot:run
+mvn clean compile spring-boot:run
 ```
 
-- Call the service
-```bash
-http http://localhost:8090/say
-HTTP/1.1 200 
-Content-Type: application/json;charset=UTF-8
-Date: Thu, 23 Nov 2017 05:42:31 GMT
-Transfer-Encoding: chunked
+- Open the Frontend within your browser `http://localhost:8080`
 
-{
-    "content": "Hello, World!",
-    "id": 1
-}
-```
+![](image/spring-boot-front.png)
 
 ## On OpenShift
 
 - Start a Minishift VM on MacOS using Xhyve hypervisor and where OpenShift 3.7 will be installed
 ```bash
-minishift --profile istio-demo config set image-caching true
-minishift --profile istio-demo config set memory 3GB
-minishift --profile istio-demo config set openshift-version v3.7.0
-minishift --profile istio-demo config set vm-driver xhyve
-minishift --profile istio-demo addon enable admin-user
-minishift start --profile istio-demo
+minishift config set image-caching true
+minishift config set memory 3GB
+minishift config set openshift-version v3.7.1
+minishift config set vm-driver xhyve
+minishift addon enable admin-user
+minishift start
 ```
 
 Remark: As Istio installs on OpenShift platform Kubernetes [`CustomResource`](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) which are
@@ -203,6 +200,7 @@ oc adm policy add-scc-to-user privileged -z default -n demo-istio
 mvn clean package fabric8:deploy -Pistio-openshift
 
 sleep 30s
+oc create -f rules/frontend/route-rule-redir.yml
 oc expose svc istio-ingress -n istio-system
 
 export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
