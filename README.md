@@ -85,13 +85,38 @@ oc adm policy add-scc-to-user privileged -z default -n demo-istio
 mvn clean package fabric8:deploy -Pistio-openshift
 ```
 
-4. Access the `Say` service using the Istio Ingress/Proxy
+4. Access the services using Istio Ingress
 
 In order to access the service, it is required first to expose the Istio Ingress proxy behind an external route that your machine can access using its hostname.
 Then, execute this command
 
 ```bash
 oc expose svc istio-ingress -n istio-system
+```
+
+Next, execute this second command responsible to create a `RouteRule` to rewrite the URL 
+
+```yaml
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: front-redir
+spec:
+  destination:
+    name: frontend
+  match:
+    request:
+      headers:
+        uri:
+          prefix: /front # prefix
+  rewrite:
+    uri: /  # drop the /front prefix when talking to frontend service such as /front/index.html -> /index.html
+```
+
+otherwise, the Spring Boot Frontend application will not be able to reply correctly
+
+```bash
+oc create -f rules/frontend/route-rule-redir.yml 
 ```
 
 5. Open the front route within your web browser using the route address of the istio ingress
