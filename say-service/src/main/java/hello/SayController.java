@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 
 @RestController
 public class SayController {
@@ -28,19 +30,21 @@ public class SayController {
     }
 
     @RequestMapping("/say")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "") String name) {
+    public Greeting greeting(@RequestParam(value = "name", defaultValue = "") String name)
+            throws UnsupportedEncodingException {
+
         log.info("URL : " + getURI(name));
         log.info("Service : " + greetingServiceName);
         return restTemplate().getForObject(getURI(name), Greeting.class);
     }
 
-    private URI getURI(String name) {
+    private URI getURI(String name) throws UnsupportedEncodingException {
         StringBuilder builder = new StringBuilder("http://");
         builder.append(greetingServiceName);
         builder.append(greetingServicePath);
         if(!name.isEmpty()) {
             builder.append("?name=");
-            builder.append(name);
+            builder.append(URLEncoder.encode(name, "UTF-8"));
         }
         return URI.create(builder.toString());
     }
