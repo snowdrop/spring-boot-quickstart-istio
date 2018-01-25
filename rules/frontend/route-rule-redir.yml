@@ -1,7 +1,7 @@
 apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
-  name: frontend-redir
+  name: front-redir
 spec:
   destination:
     name: frontend
@@ -9,6 +9,6 @@ spec:
     request:
       headers:
         uri:
-          prefix: /front/ # prefix
+          prefix: /front # prefix
   rewrite:
     uri: /  # drop the /front prefix when talking to frontend service such as /front/index.html -> /index.html
