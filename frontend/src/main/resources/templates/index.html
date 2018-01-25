@@ -32,10 +32,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-<script>
+<script th:inline="javascript">
+/*<![CDATA[*/
     $(document).ready(function () {
         $("#invoke").click(function (e) {
-            var service = '${sayServiceURI}';
+            var service = [[${sayServiceURI}]];
             var n = $("#name").val() || "World";
             $.getJSON(service + "?name=" + n, function (res) {
                 $("#greeting-result").html(JSON.stringify(res));
@@ -45,6 +46,7 @@
             e.preventDefault();
         });
     });
+/*]]>*/
 </script>
 </body>
 </html>
