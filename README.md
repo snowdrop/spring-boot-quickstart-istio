@@ -2,12 +2,10 @@ Table of Contents
 =================
 
    * [Instructions to play with Say and Greeting Spring Boot Microservices](#instructions-to-play-with-say-and-greeting-spring-boot-microservices)
-   * [Locally](#locally)
-   * [On OpenShift](#on-openshift)
-   * [On OpenShift using Istio Service Mesh](#on-openshift-using-istio-service-mesh)
-      * [Instructions](#instructions)
+      * [Locally](#locally)
+      * [On OpenShift using Istio ServiceMesh](#on-openshift-using-istio-servicemesh)
+         * [Instructions](#instructions)
       * [All in one instructions](#all-in-one-instructions)
-
 
 # Instructions to play with Say and Greeting Spring Boot Microservices 
 
