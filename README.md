@@ -42,19 +42,18 @@ mvn clean compile spring-boot:run
 
 ## On OpenShift using Istio ServiceMesh
 
-The following instructions will allow you to install the 3 Spring Boot applications atop of the Istio ServiceMesh where the frontend application will be exposed outside of the cluster 
-using an OpenShift route. Under the hood, the frontend application will issue REST calls to access the `Say` service which will also call the `Greeting` service using their respective Service Name
-and internal ingress routes.
+The following instructions will allow you to install the 3 Spring Boot applications top of the Istio ServiceMesh where the `Frontend` application will be exposed outside of the cluster using an OpenShift route. 
+
+Under the hood, the `Frontend` application will issue REST HTTP calls to access the `Say` service which will also call the `Greeting` service using their respective Kubernetes Service Name and internal ingress routes.
 
 Remark : Due to a limitation of the ingress definition, an Istio `RouteRule` must be defined in order to rewrite the `/front` URL to `/` when the front end is accessed !
 
-When, an external HTTP client will open the url of the frontend URL `http://istio-ingress-istio-system.192.168.64.71.nip.io/front` and next click on the `invoke` button within the web page,
+When, a user will open the url of the frontend `http://istio-ingress-istio-system.192.168.64.71.nip.io/front` within its web browser and next click on the `invoke` button within the web page,
 then a HTTP request will be propagated to the  `http://say-service/say` endpoint and next to the `http://greeting-service/greeting` service. The greeting service will populate the response which is 
-returned back and displayed within the static index.html page
+returned back and displayed within the static index.html page.
 
 To configure our Spring Boot applications as member of the Istio ServiceMesh, we will then configure the `Fabric8 Maven Plugin` to use the `istio-enricher` module. This module
-will enrich the `DeploymentConfig` yaml resource by adding the istio `init_cotnainer` and `istio_proxy`.
-
+will enrich the `DeploymentConfig` yaml resource by adding the istio `init_container` and `istio_proxy`.
 
 Remarks: 
 
