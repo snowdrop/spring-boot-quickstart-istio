@@ -37,12 +37,12 @@ if [ ! -d "$ISTIO_PROFILE_DIR" ]; then
 fi
 
 # Delete the VM which has been provisioned according to istio profile
-minishift delete --profile istio -f
-
-# Enable config cache and set list of images to be part of the cache
-minishift config set image-caching true
-minishift image cache-config add $IMAGES
-minishift start --profile istio
+# minishift delete --profile istio -f
+#
+# # Enable config cache and set list of images to be part of the cache
+# minishift config set image-caching true
+# minishift image cache-config add $IMAGES
+# minishift start --profile istio
 
 # Export images from Docker registry to store them locally under this directory ~/.minishift/cache/images/blobs
 #minishift image export
@@ -51,6 +51,6 @@ echo "Log to OpenShift and install istio"
 oc login $(minishift ip):8443 -u admin -p admin
 pushd $(mktemp -d)
 echo "Git clone ansible project to install istio distro on your laptop, project on openshift"
-git clone https://github.com/istio/istio.git && cd istio/install
-ansible-playbook ansible/main.yml -e '{"cluster_flavour": "ocp","istio": {"release_tag_name": "$ISTIO_VERSION", "auth": true, "jaeger": true, "bookinfo": true}}'
+git clone https://github.com/istio/istio.git && cd istio/install/ansible
+ansible-playbook main.yml -e '{"cluster_flavour": "ocp","istio": {"release_tag_name": '$ISTIO_VERSION', "auth": true, "jaeger": true, "bookinfo": true}}'
 popd
