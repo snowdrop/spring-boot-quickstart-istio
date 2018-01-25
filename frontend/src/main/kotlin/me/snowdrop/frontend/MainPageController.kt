@@ -30,14 +30,4 @@ class MainPageController constructor(
 
         return view
     }
-
-/*    *//**
-     * This is just a hack to be able to get the application working with Istio Ingress
-     * The value of the mapping MUST be the same as the path specified in ingress.yml
-     *//*
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping("/front")
-    fun front(): ModelAndView {
-        return mainPage()
-    }*/
 }
