@@ -119,13 +119,15 @@ oc create -f rules/frontend/route-rule-redir.yml
 
 5. Open the front route within your web browser using the route address of the istio ingress
 
-You can get the route address using the following `oc` command
+You can get the route address using the following `oc get route` command
 
 ```bash
 oc get route/istio-ingress -n istio-system
 NAME            HOST/PORT                                         PATH      SERVICES        PORT      TERMINATION   WILDCARD
 istio-ingress   istio-ingress-istio-system.192.168.64.71.nip.io             istio-ingress   http                    None
 ```
+
+Open your browser using the istio ingress host name and suffic it with `/front`
 
 ![](image/spring-boot-front-istio.png)
 
