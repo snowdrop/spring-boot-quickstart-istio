@@ -36,16 +36,16 @@ if [ ! -d "$ISTIO_PROFILE_DIR" ]; then
   minishift --profile istio addon enable admin-user
 fi
 
-# Delete the VM which has been provisioned according to istio profile
-# minishift delete --profile istio -f
-#
-# # Enable config cache and set list of images to be part of the cache
-# minishift config set image-caching true
-# minishift image cache-config add $IMAGES
-# minishift start --profile istio
+Delete the VM which has been provisioned according to istio profile
+minishift delete --profile istio -f
 
-# Export images from Docker registry to store them locally under this directory ~/.minishift/cache/images/blobs
-#minishift image export
+# Enable config cache and set list of images to be part of the cache
+minishift config set image-caching true
+minishift image cache-config add $IMAGES
+minishift start --profile istio
+
+ Export images from Docker registry to store them locally under this directory ~/.minishift/cache/images/blobs
+minishift image export
 
 echo "Log to OpenShift and install istio"
 oc login $(minishift ip):8443 -u admin -p admin
