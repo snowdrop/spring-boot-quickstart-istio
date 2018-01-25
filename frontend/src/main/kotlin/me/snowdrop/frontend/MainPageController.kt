@@ -1,6 +1,5 @@
 package me.snowdrop.frontend
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cloud.client.discovery.DiscoveryClient
 import org.springframework.http.HttpStatus
@@ -14,12 +13,9 @@ import org.springframework.web.servlet.ModelAndView
  * @author <a href="claprun@redhat.com">Christophe Laprun</a>
  */
 @Controller
-class MainPageController {
-    @Autowired
-    private lateinit var discoveryClient: DiscoveryClient
-
-    @Value("\${say-service.name:say-service}")
-    private lateinit var serviceName: String
+class MainPageController constructor(
+        private val discoveryClient: DiscoveryClient,
+        @Value("\${say-service.name:say-service}") private val serviceName: String){
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/")
