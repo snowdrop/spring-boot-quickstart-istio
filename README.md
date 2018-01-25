@@ -1,16 +1,16 @@
 Table of Contents
 =================
 
-   * [Instructions to play with Say and Greeting Spring Boot Microservices](#instructions-to-play-with-say-and-greeting-spring-boot-microservices)
+   * [Instructions to play with Frontend, Say and Greeting Spring Boot Microservices](#instructions-to-play-with-frontend,-say-and-greeting-spring-boot-microservices)
       * [Locally](#locally)
       * [On OpenShift using Istio ServiceMesh](#on-openshift-using-istio-servicemesh)
          * [Instructions](#instructions)
       * [All in one instructions](#all-in-one-instructions)
 
-# Instructions to play with Say and Greeting Spring Boot Microservices 
+# Instructions to play with Frontend, Say and Greeting Spring Boot Microservices 
 
 This Quickstart contains 3 Spring Boot applications. A static front application that you can use to send a message. Then this application will issue at the backend side a REST request to 
-call the `Say` service which also itself will call the `Greeting` service by issuying a REST call. 
+call the `Say` service which itself will in turn call the `Greeting` service by issuing a REST call. 
 The project can be used locally and launched using Spring Boot Maven plugin or deployed on OpenShift.
 
 To support multiple environments, 2 maven profiles have been defined and will be used to pass the endpoint of the greeting service
@@ -42,7 +42,7 @@ mvn clean compile spring-boot:run
 
 ## On OpenShift using Istio ServiceMesh
 
-The following instructions will let you to install  3 Spring Boot applications top of the Istio ServiceMesh where the frontend application will be exposed outside of the cluster 
+The following instructions will allow you to install the 3 Spring Boot applications atop of the Istio ServiceMesh where the frontend application will be exposed outside of the cluster 
 using an OpenShift route. Under the hood, the frontend application will issue REST calls to access the `Say` service which will also call the `Greeting` service using their respective Service Name
 and internal ingress routes.
 
@@ -53,13 +53,13 @@ then a HTTP request will be propagated to the  `http://say-service/say` endpoint
 returned back and displayed within the static index.html page
 
 To configure our Spring Boot applications as member of the Istio ServiceMesh, we will then configure the `Fabric8 Maven Plugin` to use the `istio-enricher` module. This module
-will enrich the `DeploymentConfig` yaml resource in order to add the istio `init_cotnainer` and `istio_proxy`.
+will enrich the `DeploymentConfig` yaml resource by adding the istio `init_cotnainer` and `istio_proxy`.
 
 
 Remarks: 
 
 - This project has been tested against Istio 0.2.12, 0.3.0 and 0.4.0. 
-- When you use the `Fabric8 Maven plugin` and the `Istio enricher`, then it is not longer required to use the `istioctl` client!
+- When you use the `Fabric8 Maven plugin` and the `Istio enricher`, then it is no longer required to use the `istioctl` client!
 
 ### Instructions 
 
@@ -187,9 +187,15 @@ oc login $(minishift ip):8443 -u admin -p admin
 
 pushd $(mktemp -d)
 echo "Git clone ansible project to install istio distro, project on openshift"
-git clone https://github.com/istio/istio.git && cd istio/install
-ansible-playbook ansible/main.yml -e '{"cluster_flavour": "ocp","istio": {"release_tag_name": "$ISTIO_VERSION", "auth": false}}'
-cd ..
+git clone https://github.com/istio/istio.git && cd istio/install/ansible
+
+export ISTIO_VERSION=0.4.0 #or whatever version you prefer
+export JSON='{"cluster_flavour": "ocp","istio": {"release_tag_name": "$ISTIO_VERSION", "auth": false}}'
+echo "$JSON" > temp.json
+ansible-playbook main.yml -e "@temp.json"
+rm temp.json
+
+cd ../..
 
 echo "Sleep at least 5min to be sure that all the docker images of istio will be downloaded and istio deployed"
 sleep 5m
