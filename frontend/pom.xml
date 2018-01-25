@@ -22,6 +22,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
     <kotlin.version>1.2.20</kotlin.version>
+    <say-service.endpoint>localhost:8090</say-service.endpoint>
   </properties>
 
   <dependencies>
@@ -40,15 +41,15 @@
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-kubernetes</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-commons</artifactId>
-      <version>1.3.1.RELEASE</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.cloud</groupId>-->
+      <!--<artifactId>spring-cloud-starter-kubernetes</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.cloud</groupId>-->
+      <!--<artifactId>spring-cloud-commons</artifactId>-->
+      <!--<version>1.3.1.RELEASE</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -112,9 +113,10 @@
   <profiles>
     <profile>
       <id>openshift</id>
-      <!--<properties>
-        <greeting.endpoint>greeting-service:8080</greeting.endpoint>
-      </properties>-->
+      <properties>
+          <say-service.endpoint>say-service:8080</say-service.endpoint>
+      </properties>
+        
       <build>
         <plugins>
           <plugin>
@@ -135,8 +137,9 @@
     <profile>
       <id>istio-openshift</id>
       <properties>
-        <fabric8.resourceDir>${basedir}/src/main/istio</fabric8.resourceDir>
-        <fabric8.mode>openshift</fabric8.mode>
+          <say-service.endpoint>say-service:8080</say-service.endpoint>
+          <fabric8.resourceDir>${basedir}/src/main/istio</fabric8.resourceDir>
+          <fabric8.mode>openshift</fabric8.mode>
       </properties>
       <build>
         <plugins>

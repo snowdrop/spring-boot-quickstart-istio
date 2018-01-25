@@ -1,33 +1,26 @@
 package me.snowdrop.frontend
 
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.cloud.client.discovery.DiscoveryClient
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.servlet.ModelAndView
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.client.RestTemplate
+import java.net.URI
 
 
 /**
  * @author <a href="claprun@redhat.com">Christophe Laprun</a>
  */
 @Controller
-class MainPageController constructor(
-        private val discoveryClient: DiscoveryClient,
-        @Value("\${say-service.name:say-service}") private val serviceName: String){
+class MainPageController(private val restTemplate: RestTemplate,
+                         private val sayServiceProperties: SayServiceProperties) {
 
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping("/")
-    fun mainPage(): ModelAndView {
-        val services = discoveryClient.getInstances(serviceName)
 
-        val service = if (services.isNotEmpty()) services.first().uri.toString() else "say-service"
-        println("service = $service")
+    @GetMapping("/")
+    fun main() = "index"
 
-        val view = ModelAndView("index")
-        view.addObject("sayServiceURI", service)
-
-        return view
-    }
+    @ResponseBody
+    @GetMapping("/say")
+    fun say(@RequestParam("name", required = false) name: String?) =
+            restTemplate.getForObject(URI.create(sayServiceProperties.getURI(name)), Greeting::class.java)
 }
