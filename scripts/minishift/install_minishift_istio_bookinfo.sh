@@ -48,7 +48,7 @@ minishift start --profile istio
 echo "Log to OpenShift and install istio"
 oc login $(minishift ip):8443 -u admin -p admin
 pushd $(mktemp -d)
-echo "Git clone ansible project to install istio distro, project on openshift"
-git clone git@github.com:snowdrop/istio-integration.git && cd istio-integration
+echo "Git clone ansible project to install istio distro on your laptop, project on openshift"
+git clone https://github.com/istio/istio.git && cd istio/install
 ansible-playbook ansible/main.yml -e '{"cluster_flavour": "ocp","istio": {"release_tag_name": "0.4.0", "auth": true, "jaeger": true, "bookinfo": true}}'
 popd
