@@ -1,2 +1,4 @@
-say-service:
-  name: fromApplicationProps
+service:
+  say:
+    name: ${say-service.endpoint}
+    path: /say

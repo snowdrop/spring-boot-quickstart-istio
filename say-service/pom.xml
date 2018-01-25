@@ -15,7 +15,7 @@
     <properties>
         <java.version>1.8</java.version>
         <say-service.port>8090</say-service.port>
-        <greeting-service.endpoint>localhost:8080</greeting-service.endpoint>
+        <greeting-service.endpoint>localhost:8091</greeting-service.endpoint>
     </properties>
 
     <dependencies>

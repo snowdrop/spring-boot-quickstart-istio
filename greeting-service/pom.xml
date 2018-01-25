@@ -40,6 +40,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <greeting-service.port>8091</greeting-service.port>
     </properties>
 
     <build>
@@ -66,7 +67,7 @@
         <profile>
             <id>openshift</id>
             <properties>
-                <greeting.endpoint>greeting-service:8080</greeting.endpoint>
+                <greeting-service.port>8080</greeting-service.port>
             </properties>
             <build>
                 <plugins>
@@ -88,6 +89,7 @@
         <profile>
             <id>istio-openshift</id>
             <properties>
+                <greeting-service.port>8080</greeting-service.port>
                 <fabric8.resourceDir>${basedir}/src/main/istio</fabric8.resourceDir>
                 <fabric8.mode>openshift</fabric8.mode>
             </properties>
