@@ -1,14 +1,16 @@
 #! /bin/sh
 
+ISTIO_VERSION=${1:-0.4.0}
+
 ISTIO_PROFILE_DIR="$HOME/.minishift/profiles/istio"
 docker_images=(
-  istio/istio-ca:0.4.0
-  istio/grafana:0.4.0
-  istio/pilot:0.4.0
-  istio/proxy_debug:0.4.0
-  istio/proxy_init:0.4.0
-  istio/mixer:0.4.0
-  istio/servicegraph:0.4.0
+  istio/istio-ca:$ISTIO_VERSION
+  istio/grafana:$ISTIO_VERSION
+  istio/pilot:$ISTIO_VERSION
+  istio/proxy_debug:$ISTIO_VERSION
+  istio/proxy_init:$ISTIO_VERSION
+  istio/mixer:$ISTIO_VERSION
+  istio/servicegraph:$ISTIO_VERSION
   istio/examples-bookinfo-ratings-v1:0.2.8
   istio/examples-bookinfo-ratings-v2:0.2.8
   istio/examples-bookinfo-reviews-v1:0.2.8
@@ -50,5 +52,5 @@ oc login $(minishift ip):8443 -u admin -p admin
 pushd $(mktemp -d)
 echo "Git clone ansible project to install istio distro on your laptop, project on openshift"
 git clone https://github.com/istio/istio.git && cd istio/install
-ansible-playbook ansible/main.yml -e '{"cluster_flavour": "ocp","istio": {"release_tag_name": "0.4.0", "auth": true, "jaeger": true, "bookinfo": true}}'
+ansible-playbook ansible/main.yml -e '{"cluster_flavour": "ocp","istio": {"release_tag_name": "$ISTIO_VERSION", "auth": true, "jaeger": true, "bookinfo": true}}'
 popd
