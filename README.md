@@ -94,7 +94,19 @@ Then, execute this command
 oc expose svc istio-ingress -n istio-system
 ```
 
-Next, you will be able to access the service using the address of the service exposed by the Ingress Proxy
+5. Open the front route within your web browser using the route address of the istio ingress
+
+You can get the route address using the following `oc` command
+
+```bash
+oc get route/istio-ingress -n istio-system
+NAME            HOST/PORT                                         PATH      SERVICES        PORT      TERMINATION   WILDCARD
+istio-ingress   istio-ingress-istio-system.192.168.64.71.nip.io             istio-ingress   http                    None
+```
+
+![](image/spring-boot-front-istio.png)
+
+Then, you can also access the service using the address of the service exposed by the Ingress Proxy
 
 ```bash
 export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
