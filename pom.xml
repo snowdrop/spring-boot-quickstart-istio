@@ -9,13 +9,11 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <parent>
-        <groupId>io.openshift.booster</groupId>
-        <artifactId>spring-boot-booster-parent</artifactId>
-        <version>1.5.10.Beta2</version>
-    </parent>
 
     <properties>
+        <spring-boot-bom.version>1.5.10.Beta1</spring-boot-bom.version>
+
+        <maven-spring-boot.version>1.5.10.RELEASE</maven-spring-boot.version>
         <maven-fabric8.version>3.5.33</maven-fabric8.version>
         <opentracing-tracer.version>0.0.1-SNAPSHOT</opentracing-tracer.version>
     </properties>
@@ -53,6 +51,45 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${maven-spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId>
+                <version>${maven-fabric8.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>

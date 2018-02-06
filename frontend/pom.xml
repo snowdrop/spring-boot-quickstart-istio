@@ -33,7 +33,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
-      <version>${spring-boot-maven-plugin.version}</version>
+      <version>${maven-spring-boot.version}</version>
     </dependency>
     <!-- hot swapping, disable cache for template, enable live reload -->
     <dependency>
