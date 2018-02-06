@@ -2,8 +2,8 @@ package hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,10 +24,8 @@ public class SayController {
     @Value("${service.greeting.path}")
     private String greetingServicePath;
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+    @Autowired
+    private RestTemplate restTemplate;
 
     @RequestMapping("/say")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "") String name)
@@ -35,7 +33,7 @@ public class SayController {
 
         log.info("URL : " + getURI(name));
         log.info("Service : " + greetingServiceName);
-        return restTemplate().getForObject(getURI(name), Greeting.class);
+        return restTemplate.getForObject(getURI(name), Greeting.class);
     }
 
     private URI getURI(String name) throws UnsupportedEncodingException {
