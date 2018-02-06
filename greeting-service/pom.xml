@@ -25,6 +25,12 @@
             <version>2.0.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>me.snowdrop</groupId>
+            <artifactId>opentracing-tracer-jaeger-spring-web-starter</artifactId>
+            <version>${opentracing-tracer.version}</version>
+        </dependency>
+
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
