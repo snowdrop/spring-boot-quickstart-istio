@@ -91,29 +91,15 @@ Then, execute this command
 oc expose svc istio-ingress -n istio-system
 ```
 
-Next, execute this second command responsible to create a `RouteRule` to rewrite the URL 
-
-```yaml
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
-metadata:
-  name: front-redir
-spec:
-  destination:
-    name: frontend
-  match:
-    request:
-      headers:
-        uri:
-          prefix: /front # prefix
-  rewrite:
-    uri: /  # drop the /front prefix when talking to frontend service such as /front/index.html -> /index.html
-```
-
-otherwise, the Spring Boot Frontend application will not be able to reply correctly
+Next, execute the following commands responsible to :
+- Expose the `/front` URL behind the ingress router
+- Expose the `/say` URL behind the ingress router (to call the front controller calling internally the say-service)
+- Create a `RouteRule` to rewrite the URL
 
 ```bash
-oc create -f rules/frontend/route-rule-redir.yml 
+oc create -f rules/frontend/ingress-front.yaml
+oc create -f rules/frontend/ingress-say.yaml
+oc create -f rules/frontend/route-rule-redir.yml -n istio-system
 ```
 
 5. Open the front route within your web browser using the route address of the istio ingress
@@ -126,7 +112,7 @@ NAME            HOST/PORT                                         PATH      SERV
 istio-ingress   istio-ingress-istio-system.192.168.64.71.nip.io             istio-ingress   http                    None
 ```
 
-Open your browser using the istio ingress host name and suffic it with `/front`
+Open your browser using the istio ingress host name and suffix it with `/front`
 
 ![](image/spring-boot-front-istio.png)
 
