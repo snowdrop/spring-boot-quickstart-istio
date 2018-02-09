@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: say-service
+  annotations:
+    kubernetes.io/ingress.class: istio
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /say
+        backend:
+          serviceName: say-service
+          servicePort: 8080

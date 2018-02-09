@@ -5,3 +5,5 @@ metadata:
 spec:
   destination:
     name: say-service
+  route:
+    - weight: 100
