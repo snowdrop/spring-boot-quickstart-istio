@@ -189,7 +189,7 @@ echo "Git clone ansible project to install istio distro, project on openshift"
 git clone https://github.com/istio/istio.git && cd istio/install/ansible
 
 export ISTIO_VERSION=0.4.0 #or whatever version you prefer
-export JSON='{"cluster_flavour": "ocp","istio": {"release_tag_name": "$ISTIO_VERSION", "auth": false}}'
+export JSON='{"cluster_flavour": "ocp","istio": {"release_tag_name": "$ISTIO_VERSION", "auth": false, "jaeger": true, "delete_resources": true}}'
 echo "$JSON" > temp.json
 ansible-playbook main.yml -e "@temp.json"
 rm temp.json
@@ -208,8 +208,8 @@ oc adm policy add-scc-to-user privileged -z default -n demo-istio
 mvn clean package fabric8:deploy -Pistio-openshift
 
 sleep 30s
-oc create -f rules/frontend/route-rule-redir.yml
 oc expose svc istio-ingress -n istio-system
+oc create -f rules/frontend/route-rule-redir.yml
 
 export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
 http -v $SAY_URL
