@@ -164,6 +164,14 @@ x-envoy-upstream-service-time: 63
 
 ```
 
+6. To play with `Access Control List` to deny access to the `greeting service` from the `say service` then create the following `deny` rule
+
+```bash
+istioctl create -f rules/say/denial.yaml
+```
+
+Access again to the home page of the front and you sill see that you get as response a HTTP 403 forbidden message !
+
 Enjoy this first **Istio** and **Spring Boot** Developer Experience !!
 
 ## All in one instructions

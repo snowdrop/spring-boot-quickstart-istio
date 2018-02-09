@@ -1,0 +1,27 @@
+apiVersion: "config.istio.io/v1alpha2"
+kind: denier
+metadata:
+  name: denysayservicehandler
+  namespace: demo-istio
+spec:
+  status:
+    code: 7
+    message: Not allowed
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: checknothing
+metadata:
+  name: denysayservicerequest
+  namespace: demo-istio
+spec:
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: rule
+metadata:
+  name: denysayservice
+  namespace: demo-istio
+spec:
+  match: destination.labels["app"] == "greeting-service" && source.labels["app"]=="say-service"
+  actions:
+  - handler: denysayservicehandler.denier
+    instances: [ denysayservicerequest.checknothing ]
