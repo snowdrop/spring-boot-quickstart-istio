@@ -203,7 +203,10 @@ mvn clean package fabric8:deploy -Pistio-openshift
 
 sleep 30s
 oc expose svc istio-ingress -n istio-system
+oc create -f rules/frontend/ingress-front.yml
 oc create -f rules/frontend/route-rule-redir.yml
+oc create -f rules/frontend/ingress-say.yml
+oc create -f rules/say/denial.yaml
 
 export SAY_URL=$(minishift openshift service istio-ingress -n istio-system --url)/say
 http -v $SAY_URL
